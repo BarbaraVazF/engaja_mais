@@ -92,6 +92,13 @@ const AlunoDetalhes = () => {
     navigate(`/solicitacao/${encodeURIComponent(title)}`);
   };
 
+  const handleDownloadRelatorio = (url, nome) => {
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = nome;
+    link.click();
+  };
+
   const funcionalidades = [
     { title: 'Plano de ensino personalizado', color: '#FFDB00' },
     { title: 'Materiais de estudo e atividades para casa', color: '#FE3B3E' },
@@ -143,27 +150,20 @@ const AlunoDetalhes = () => {
           <tr>
             <th>Título da Solicitação</th>
             <th>Data da Solicitação</th>
-            <th>Apagar</th>
+            <th>Opções</th>
           </tr>
         </thead>
         <tbody>
           {solicitacoes.length > 0 ? (
             solicitacoes.map((solicitacao) => (
               <tr key={solicitacao.id}>
-                <td>
-                  <a
-                    href="#"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      navigate(`/solicitacao/${encodeURIComponent(solicitacao.titulo)}`);
-                    }}
-                  >
-                    {solicitacao.titulo}
-                  </a>
-                </td>
+                <td>{solicitacao.titulo}</td>
                 <td>{solicitacao.data}</td>
                 <td>
-                  <button onClick={() => removerSolicitacao(solicitacao.id)}>
+                  <button 
+                    onClick={() => removerSolicitacao(solicitacao.id)}
+                    style={{ border: 'none', background: 'none', cursor: 'pointer' }}
+                  >
                     <img src="/apagar_aluno.png" alt="Apagar" width="20" height="20" />
                   </button>
                 </td>
@@ -183,22 +183,27 @@ const AlunoDetalhes = () => {
           <tr>
             <th>Nome do Relatório</th>
             <th>Data de Inserção</th>
-            <th>Apagar</th>
+            <th>Opções</th>
           </tr>
         </thead>
         <tbody>
           {aluno.relatorios && aluno.relatorios.length > 0 ? (
             aluno.relatorios.map((rel) => (
               <tr key={rel.id}>
-                <td>
-                  <a href={rel.url} download={`${rel.nome}.pdf`}>
-                    {rel.nome}
-                  </a>
-                </td>
+                <td>{rel.nome}</td>
                 <td>{rel.data}</td>
                 <td>
-                  <button onClick={() => removerRelatorio(rel.id)}>
+                  <button 
+                    onClick={() => removerRelatorio(rel.id)}
+                    style={{ border: 'none', background: 'none', cursor: 'pointer', marginRight: '10px' }}
+                  >
                     <img src="/apagar_aluno.png" alt="Apagar" width="20" height="20" />
+                  </button>
+                  <button 
+                    onClick={() => handleDownloadRelatorio(rel.url, rel.nome)}
+                    style={{ border: 'none', background: 'none', cursor: 'pointer' }}
+                  >
+                    <img src="/download.png" alt="Download" width="20" height="20" />
                   </button>
                 </td>
               </tr>
@@ -211,15 +216,23 @@ const AlunoDetalhes = () => {
         </tbody>
       </table>
 
-      <div style={{ display: "flex", justifyContent: "center", marginTop: "20px" }}>
-        <Button
-          backgroundColor="#022651"
-          strokeColor="#5A5858"
-          onClick={() => navigate(`/cadastrar-relatorio/${alunoId}`)}
-        >
-          Inserir Novo Relatório
-        </Button>
-      </div>
+      {(!aluno.relatorios || aluno.relatorios.length === 0) && (
+        <div style={{ display: "flex", justifyContent: "center", marginTop: "20px" }}>
+          <Button
+            backgroundColor="#022651"
+            strokeColor="#5A5858"
+            onClick={() => navigate(`/cadastrar-relatorio/${alunoId}`)}
+          >
+            Inserir Novo Relatório
+          </Button>
+        </div>
+      )}
+
+      {aluno.relatorios && aluno.relatorios.length > 0 && (
+        <div style={{ textAlign: 'center', color: 'gray', fontSize: '16px', marginBottom: '6px' }}>
+          Para inserir um novo relatório, é necessário excluir o atual.
+        </div>
+      )}
 
       {popupOpen && (
         <FuncionalidadePopup

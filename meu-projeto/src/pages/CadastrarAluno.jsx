@@ -66,7 +66,7 @@ const CadastrarAluno = () => {
   };
 
   return (
-    <div className="cadastrar-aluno-page">
+    <div className="cadastrar-aluno-page" style={{backgroundColor: "transparent"}}>
       <Navbar userName="Bárbara" />
       <div className="header">
         <VoltarButton />

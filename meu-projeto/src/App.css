@@ -244,6 +244,7 @@ body {
   margin-top: 80px;
   padding: 20px;
   box-shadow: none; /* Garante que não há sombra */
+  background-color: transparent
 }
 
 /* Header (título e botão de voltar) */
@@ -283,7 +284,7 @@ body {
 /* Botão de voltar */
 .voltar-button {
   all: unset; /* Reseta estilos herdados */
-  background: white !important; /* Fundo branco */
+  background: transparent !important; /* Fundo branco */
   border: none;
   cursor: pointer;
   padding: 2px;

@@ -9,7 +9,7 @@ const VoltarButton = () => {
   };
 
   return (
-    <button onClick={handleVoltar} className="voltar-button">
+    <button onClick={handleVoltar} className="voltar-button" style={{backgroundColor: "transparent"}}>
       <img src="/voltar.png" alt="Voltar" />
     </button>
   );
