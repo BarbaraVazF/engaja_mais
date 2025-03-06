@@ -3,39 +3,45 @@ import { useNavigate } from 'react-router-dom';
 import Logo from '../components/Logo';
 import InputField from '../components/InputField';
 import Button from '../components/Button';
+import { authClient } from "../lib/auth-client";
 
 const Register = () => {
-  const [name, setName] = useState('');
-  const [cpf, setCpf] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [name, setName] = useState("");
+  const [cpf, setCpf] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     if (password !== confirmPassword) {
-      alert('As senhas não coincidem.');
+      alert("As senhas não coincidem.");
       return;
     }
-
-    // Gera um ID único para o professor
-    const professorId = Date.now().toString();
-
-    // Salva os dados do professor no localStorage
-    localStorage.setItem('professorId', professorId);
-    localStorage.setItem('userName', name);
-    localStorage.setItem('userCpf', cpf);
-    localStorage.setItem('userEmail', email);
-
-    // Cria uma lista de alunos vazia para o professor
-    localStorage.setItem(`alunos_${professorId}`, JSON.stringify([]));
-
-    alert('Cadastro realizado com sucesso!');
-    navigate('/login');
-  };
   
+    try {
+      const { data, error } = await authClient.signUp.email({
+        email,
+        password,
+        name,
+        cpf,
+      });
+  
+      if (error) {
+        alert("Erro ao cadastrar: " + error.message);
+        return; // Adicionado para evitar que navegue em caso de erro
+      }
+  
+      alert("Cadastro realizado com sucesso!");
+      navigate("/home"); 
+    } catch (error) {
+      console.error(error);
+      alert("Erro ao cadastrar. Tente novamente.");
+    }
+  };
+
   return (
     <div className="register-page">
       <Logo />

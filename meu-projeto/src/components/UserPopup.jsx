@@ -1,14 +1,22 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { authClient } from "../lib/auth-client"; // Importa o authClient
 
-const UserPopup = ({ userName, userCpf, userEmail, onClose }) => {
+const UserPopup = ({ onClose }) => {
   const navigate = useNavigate();
+  
+  // Obtém a sessão do usuário
+  const { data: session } = authClient.useSession();
 
-  const handleLogout = () => {
-    localStorage.removeItem('professorId');
-    localStorage.removeItem('userName');
-    localStorage.removeItem('userCpf');
-    localStorage.removeItem('userEmail');
+  // Verifica se há sessão ativa
+  if (!session?.user) {
+    return <div>Carregando...</div>;
+  }
+
+  const { name, cpf, email } = session.user; // Pegando os dados do usuário
+
+  const handleLogout = async () => {
+    await authClient.signOut();
     navigate('/login');
   };
 
@@ -16,9 +24,9 @@ const UserPopup = ({ userName, userCpf, userEmail, onClose }) => {
     <div className="popup-overlay" onClick={onClose}>
       <div className="popup" onClick={(e) => e.stopPropagation()}>
         <h2>Dados do Usuário</h2>
-        <p><strong>Nome:</strong> {userName}</p>
-        <p><strong>CPF:</strong> {userCpf}</p>
-        <p><strong>Email:</strong> {userEmail}</p> {/* Exibindo o email cadastrado */}
+        <p><strong>Nome:</strong> {name}</p>
+        <p><strong>CPF:</strong> {cpf}</p>
+        <p><strong>Email:</strong> {email}</p>
         <div className="popup-buttons">
           <button onClick={onClose} style={{ backgroundColor: '#5A5858', color: 'white', width: '90px', marginTop: '10px' }}>Fechar</button>
           <button onClick={handleLogout} style={{ backgroundColor: '#510202', color: 'white', width: '90px', marginTop: '10px' }}>Sair</button>

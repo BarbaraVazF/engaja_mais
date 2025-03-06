@@ -1,29 +1,40 @@
+// src/components/Login.jsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Logo from '../components/Logo';
 import InputField from '../components/InputField';
 import Button from '../components/Button';
+import { authClient } from "../lib/auth-client";
 
 const Login = () => {
   const [cpfOrEmail, setCpfOrEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    // Simulação: Recupera os dados cadastrados do localStorage
-    const storedUserName = localStorage.getItem('userName');
-    const storedCpf = localStorage.getItem('userCpf');
-  
-    if (!storedUserName || !storedCpf) {
-      alert("Usuário não encontrado. Verifique seus dados.");
-      return;
+    setLoading(true);
+
+    try {
+      const response = await authClient.login({
+        identifier: cpfOrEmail,  // Pode ser CPF ou Email
+        password
+      });
+
+      if (response.success) {
+        localStorage.setItem('token', response.token);
+        localStorage.setItem('userName', response.user.name);
+        navigate('/home');
+      } else {
+        alert(response.message || "Erro ao fazer login");
+      }
+    } catch (error) {
+      alert("Falha na autenticação. Verifique suas credenciais.");
+      console.error(error);
+    } finally {
+      setLoading(false);
     }
-  
-    // Salva o usuário correto na sessão
-    localStorage.setItem('userName', storedUserName);
-    navigate('/home');
   };
 
   return (
@@ -46,9 +57,9 @@ const Login = () => {
         <Button
           backgroundColor="#022651"
           strokeColor="#5A5858"
-          onClick={handleSubmit}
+          disabled={loading}
         >
-          Entrar
+          {loading ? "Entrando..." : "Entrar"}
         </Button>
       </form>
       <p className="link" onClick={() => navigate('/register')}>
