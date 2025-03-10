@@ -4,6 +4,8 @@ import { useNavigate, Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Button from '../components/Button';
 import { authClient } from '../lib/auth-client'; // Importa o authClient
+import { listStudent } from '../api/listStudent';
+ 
 
 const Home = () => {
   const navigate = useNavigate();
@@ -16,9 +18,7 @@ const Home = () => {
   useEffect(() => {
     // Verifica se há uma sessão ativa
     if (session?.user) {
-      const professorId = session.user.id; // Usa o ID do professor da sessão
-      const alunosSalvos = JSON.parse(localStorage.getItem(`alunos_${professorId}`)) || [];
-      setAlunos(alunosSalvos);
+      listStudent().then((value) => {setAlunos(value)});
     } else {
       // Se não houver sessão, redireciona para o login
       navigate('/login');
@@ -66,9 +66,9 @@ const Home = () => {
           {alunos.map((aluno) => (
             <tr key={aluno.id}>
               <td>
-                <Link to={`/aluno/${aluno.id}`}>{aluno.nome}</Link>
+                <Link to={`/aluno/${aluno.id}`}>{aluno.name}</Link>
               </td>
-              <td>{aluno.dataCadastro}</td>
+              <td>{aluno.createdAt}</td>
               <td>
                 <button onClick={() => removerAluno(aluno.id)} className="apagar-button">
                   <img src="/apagar_aluno.png" alt="Apagar" width="20" height="20" />
