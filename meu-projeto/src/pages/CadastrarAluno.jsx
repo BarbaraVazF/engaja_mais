@@ -5,13 +5,14 @@ import InputField from '../components/InputField';
 import Button from '../components/Button';
 import VoltarButton from '../components/VoltarButton';
 import FileUpload from '../components/FileUpload';
+import { addStudent } from '../api/addStudent'; 
 
 const CadastrarAluno = () => {
   const [nome, setNome] = useState('');
   const [relatorio, setRelatorio] = useState(null);
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!nome.trim()) {
@@ -22,28 +23,30 @@ const CadastrarAluno = () => {
     // Recupera o ID do professor logado
     const professorId = localStorage.getItem('professorId');
 
-    // Recupera a lista de alunos do professor
-    const alunosSalvos = JSON.parse(localStorage.getItem(`alunos_${professorId}`)) || [];
-
     // Converte o arquivo PDF para uma URL de dados
     const reader = new FileReader();
-    reader.onload = (e) => {
+    reader.onload = async (e) => {
       const pdfDataUrl = e.target.result;
 
       // Cria o objeto do novo aluno
       const novoAluno = {
-        id: Date.now(),
-        nome: nome,
-        dataCadastro: new Date().toLocaleDateString('pt-BR'),
-        relatorios: relatorio ? [{ id: Date.now(), nome: relatorio.name, data: new Date().toLocaleDateString('pt-BR'), url: pdfDataUrl }] : [],
+        name: nome,
+        relatorios: relatorio ? [{ nome: relatorio.name, data: new Date().toLocaleDateString('pt-BR'), url: pdfDataUrl }] : [],
       };
 
-      // Adiciona o novo aluno à lista e salva no localStorage
-      const novaLista = [...alunosSalvos, novoAluno];
-      localStorage.setItem(`alunos_${professorId}`, JSON.stringify(novaLista));
-
-      alert('Aluno cadastrado com sucesso!');
-      navigate('/home');
+      try {
+        // Envia os dados do aluno para o backend
+        const response = await addStudent(novoAluno);
+        if (response.error) {
+          alert(response.error);
+        } else {
+          alert('Aluno cadastrado com sucesso!');
+          navigate('/home');
+        }
+      } catch (error) {
+        console.error("Erro ao cadastrar aluno:", error);
+        alert("Erro ao cadastrar aluno.");
+      }
     };
 
     if (relatorio) {
@@ -51,17 +54,25 @@ const CadastrarAluno = () => {
     } else {
       // Se não houver relatório, salva o aluno sem relatório
       const novoAluno = {
-        id: Date.now(),
         nome: nome,
         dataCadastro: new Date().toLocaleDateString('pt-BR'),
         relatorios: [],
+        professorId: professorId, // Adiciona o ID do professor ao objeto do aluno
       };
 
-      const novaLista = [...alunosSalvos, novoAluno];
-      localStorage.setItem(`alunos_${professorId}`, JSON.stringify(novaLista));
-
-      alert('Aluno cadastrado com sucesso!');
-      navigate('/home');
+      try {
+        // Envia os dados do aluno para o backend
+        const response = await addStudent(novoAluno);
+        if (response.error) {
+          alert(response.error);
+        } else {
+          alert('Aluno cadastrado com sucesso!');
+          navigate('/home');
+        }
+      } catch (error) {
+        console.error("Erro ao cadastrar aluno:", error);
+        alert("Erro ao cadastrar aluno.");
+      }
     }
   };
 

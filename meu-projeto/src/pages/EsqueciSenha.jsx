@@ -3,13 +3,18 @@ import { useNavigate } from 'react-router-dom';
 import Logo from '../components/Logo';
 import InputField from '../components/InputField';
 import Button from '../components/Button';
+import { authClient } from "../lib/auth-client";
 
 const EsqueciSenha = () => {
   const [email, setEmail] = useState('');
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    await authClient.sendVerificationEmail({
+      email: email,
+      callbackURL: "/", // The redirect URL after verification
+    });
     // Simulação de envio de e-mail
     alert(`Um código foi enviado para ${email}. Verifique sua caixa de entrada.`);
     navigate('/inserir-codigo');

@@ -17,17 +17,18 @@ const Login = () => {
     setLoading(true);
 
     try {
-      const response = await authClient.login({
-        identifier: cpfOrEmail,  // Pode ser CPF ou Email
-        password
+      const response = await authClient.signIn.email({
+        email: cpfOrEmail,  // Pode ser CPF ou Email
+        password: password
       });
+      console.log(response)
 
-      if (response.success) {
-        localStorage.setItem('token', response.token);
-        localStorage.setItem('userName', response.user.name);
+      if (!response.error) {
+        localStorage.setItem('token', response.data.token);
+        localStorage.setItem('userName', response.data.user.name);
         navigate('/home');
       } else {
-        alert(response.message || "Erro ao fazer login");
+        alert(response.error.message || "Erro ao fazer login");
       }
     } catch (error) {
       alert("Falha na autenticação. Verifique suas credenciais.");
