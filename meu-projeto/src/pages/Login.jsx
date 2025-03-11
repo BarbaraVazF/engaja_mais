@@ -1,14 +1,14 @@
 // src/components/Login.jsx
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import Logo from '../components/Logo';
-import InputField from '../components/InputField';
-import Button from '../components/Button';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Button from "../components/Button";
+import InputField from "../components/InputField";
+import Logo from "../components/Logo";
 import { authClient } from "../lib/auth-client";
 
 const Login = () => {
-  const [cpfOrEmail, setCpfOrEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [cpfOrEmail, setCpfOrEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -18,15 +18,13 @@ const Login = () => {
 
     try {
       const response = await authClient.signIn.email({
-        email: cpfOrEmail,  // Pode ser CPF ou Email
-        password: password
+        email: cpfOrEmail,
+        password: password,
       });
-      console.log(response)
+      console.log(response);
 
       if (!response.error) {
-        localStorage.setItem('token', response.data.token);
-        localStorage.setItem('userName', response.data.user.name);
-        navigate('/home');
+        navigate("/home");
       } else {
         alert(response.error.message || "Erro ao fazer login");
       }
@@ -63,10 +61,10 @@ const Login = () => {
           {loading ? "Entrando..." : "Entrar"}
         </Button>
       </form>
-      <p className="link" onClick={() => navigate('/register')}>
+      <p className="link" onClick={() => navigate("/register")}>
         Não tem uma conta? Cadastre-se
       </p>
-      <p className="link" onClick={() => navigate('/esqueci-senha')}>
+      <p className="link" onClick={() => navigate("/esqueci-senha")}>
         Esqueci minha senha
       </p>
     </div>

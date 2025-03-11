@@ -3,6 +3,7 @@ body {
   margin: 0;
   font-family: Arial, sans-serif;
   background-color: #f9f9f9;
+  color: #0a0a0a;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -11,7 +12,8 @@ body {
 
 /* Logo */
 .logo img {
-  width: 150px; /* Logo um pouco menor */
+  width: 150px;
+  /* Logo um pouco menor */
 }
 
 /* Container do formulário */
@@ -20,16 +22,19 @@ body {
   flex-direction: column;
   align-items: center;
   width: 100%;
-  max-width: 906px; /* Largura máxima das caixas de texto */
+  max-width: 906px;
+  /* Largura máxima das caixas de texto */
   background-color: transparent;
 }
 
 /* Campos de entrada */
 .input-field {
   width: 906px;
-  height: 24px; /* Altura reduzida */
+  height: 24px;
+  /* Altura reduzida */
   background-color: #F2F2F2;
   border: 1px solid #CFCECE;
+  color: #000;
   border-radius: 4px;
   padding: 10px;
   margin-bottom: 15px;
@@ -38,8 +43,10 @@ body {
 
 /* Botões */
 .custom-button {
-  width: 926px; /* Largura ajustada */
-  height: 40px; /* Altura reduzida */
+  width: 926px;
+  /* Largura ajustada */
+  height: 40px;
+  /* Altura reduzida */
   border-radius: 4px;
   font-size: 16px;
   color: white;
@@ -68,21 +75,29 @@ body {
 /* Navbar */
 .navbar {
   display: flex;
-  justify-content: space-between; /* Espaço entre a logo e o círculo do usuário */
+  justify-content: space-between;
+  /* Espaço entre a logo e o círculo do usuário */
   align-items: center;
   width: 100%;
-  padding: 10px 20px; /* Margem interna */
+  padding: 10px 20px;
+  /* Margem interna */
   background-color: #f9f9f9;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra leve */
-  position: fixed; /* Fixa no topo */
-  top: 0; /* Colada no topo */
-  left: 0; /* Alinhada à esquerda */
-  z-index: 1000; /* Garante que fique acima de outros elementos */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  /* Sombra leve */
+  position: fixed;
+  /* Fixa no topo */
+  top: 0;
+  /* Colada no topo */
+  left: 0;
+  /* Alinhada à esquerda */
+  z-index: 1000;
+  /* Garante que fique acima de outros elementos */
 }
 
 /* Container da logo */
 .logo-container {
-  margin-left: 20px; /* Margem à esquerda */
+  margin-left: 20px;
+  /* Margem à esquerda */
 }
 
 /* Círculo do usuário */
@@ -96,7 +111,8 @@ body {
   justify-content: center;
   align-items: center;
   font-size: 18px;
-  margin-right: 60px; /* Margem à direita */
+  margin-right: 60px;
+  /* Margem à direita */
 }
 
 /* Funcionalidades */
@@ -117,14 +133,16 @@ body {
   flex-direction: column;
   align-items: center;
   width: 100%;
-  max-width: 906px; /* Largura máxima */
+  max-width: 906px;
+  /* Largura máxima */
   margin: 0 auto;
   padding: 20px;
 }
 
 /* Mensagem de boas-vindas */
 .welcome-message {
-  font-size: 20px; /* Tamanho menor */
+  font-size: 20px;
+  /* Tamanho menor */
   color: #022651;
   margin-bottom: 20px;
   text-align: center;
@@ -137,7 +155,8 @@ body {
   margin-bottom: 20px;
 }
 
-.alunos-table th, .alunos-table td {
+.alunos-table th,
+.alunos-table td {
   border: 1px solid #CFCECE;
   padding: 10px;
   text-align: left;
@@ -243,15 +262,18 @@ body {
   max-width: 906px;
   margin-top: 80px;
   padding: 20px;
-  box-shadow: none; /* Garante que não há sombra */
+  box-shadow: none;
+  /* Garante que não há sombra */
   background-color: transparent
 }
 
 /* Header (título e botão de voltar) */
 .header {
   display: flex;
-  align-items: center; /* Centraliza verticalmente */
-  justify-content: center; /* Centraliza horizontalmente */
+  align-items: center;
+  /* Centraliza verticalmente */
+  justify-content: center;
+  /* Centraliza horizontalmente */
   width: 100%;
   margin-bottom: 20px;
 }
@@ -283,8 +305,10 @@ body {
 
 /* Botão de voltar */
 .voltar-button {
-  all: unset; /* Reseta estilos herdados */
-  background: transparent !important; /* Fundo branco */
+  all: unset;
+  /* Reseta estilos herdados */
+  background: transparent !important;
+  /* Fundo branco */
   border: none;
   cursor: pointer;
   padding: 2px;
@@ -295,12 +319,15 @@ body {
 }
 
 .voltar-button img {
-  width: 28px; /* Tamanho bem pequeno */
-  height: 28px; /* Tamanho bem pequeno */
+  width: 28px;
+  /* Tamanho bem pequeno */
+  height: 28px;
+  /* Tamanho bem pequeno */
 }
 
 .cadastrar-aluno-page {
-  box-shadow: none !important; /* Sobrescreve qualquer sombra aplicada */
+  box-shadow: none !important;
+  /* Sobrescreve qualquer sombra aplicada */
 }
 
 /* Estilos para o popup */
@@ -329,13 +356,16 @@ body {
   margin-bottom: 10px;
   font-size: 22px;
   font-weight: bold;
-  color: #000000; /* Letra preta */
+  color: #000000;
+  /* Letra preta */
 }
 
 .popup p {
-  margin: 5px 0; /* Reduz o espaçamento entre os textos */
+  margin: 5px 0;
+  /* Reduz o espaçamento entre os textos */
   font-size: 18px;
-  color: #000000; /* Letra preta */
+  color: #000000;
+  /* Letra preta */
 }
 
 .popup-buttons {
@@ -358,7 +388,8 @@ body {
   border-collapse: collapse;
   margin-bottom: 20px;
   background-color: white;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra leve */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  /* Sombra leve */
 }
 
 .relatorios-table th,
