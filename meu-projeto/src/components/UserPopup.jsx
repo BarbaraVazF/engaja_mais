@@ -4,7 +4,7 @@ import { authClient } from "../lib/auth-client"; // Importa o authClient
 
 const UserPopup = ({ onClose }) => {
   const navigate = useNavigate();
-  
+
   // Obtém a sessão do usuário
   const { data: session } = authClient.useSession();
 
@@ -16,8 +16,7 @@ const UserPopup = ({ onClose }) => {
   const { name, cpf, email } = session.user; // Pegando os dados do usuário
 
   const handleLogout = async () => {
-    await authClient.signOut();
-    navigate('/login');
+    await authClient.signOut({ fetchOptions: { onSuccess: () => { navigate('/login') } } });
   };
 
   return (
@@ -25,11 +24,10 @@ const UserPopup = ({ onClose }) => {
       <div className="popup" onClick={(e) => e.stopPropagation()}>
         <h2>Dados do Usuário</h2>
         <p><strong>Nome:</strong> {name}</p>
-        <p><strong>CPF:</strong> {cpf}</p>
         <p><strong>Email:</strong> {email}</p>
         <div className="popup-buttons">
-          <button onClick={onClose} style={{ backgroundColor: '#5A5858', color: 'white', width: '90px', marginTop: '10px' }}>Fechar</button>
-          <button onClick={handleLogout} style={{ backgroundColor: '#510202', color: 'white', width: '90px', marginTop: '10px' }}>Sair</button>
+          <button onClick={onClose} style={{ backgroundColor: '#5A5858', color: 'white', width: '100px', height: '40px', marginTop: '10px', marginLeft: '10%' }}>Fechar</button>
+          <button onClick={handleLogout} style={{ backgroundColor: '#510202', color: 'white', width: '100px', height: '40px', marginTop: '10px', marginRight: '10%' }}>Sair</button>
         </div>
       </div>
     </div>

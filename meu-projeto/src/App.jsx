@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import { redirect, Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import "./App.css";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import { PublicRoute } from "./components/PublicRoute";
@@ -64,6 +64,7 @@ const App = () => {
   return (
     <Router>
       <Routes>
+        <Route path="/" element={() => redirect('/home')}></Route>
         {publicRoutes.map((route) => (
           <Route
             path={route.path}
