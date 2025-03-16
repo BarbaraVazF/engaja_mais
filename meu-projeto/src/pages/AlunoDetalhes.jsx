@@ -58,6 +58,8 @@ const AlunoDetalhes = () => {
     setSolicitacoes(novasSolicitacoes);
   };
 
+  const desabilitarBotao = aluno?.relatorios && aluno.relatorios.length > 0;
+
   const handleFuncionalidadeClick = (title) => {
     setPopupTitle(title);
     setPopupOpen(true);
@@ -217,14 +219,25 @@ const AlunoDetalhes = () => {
       </table>
 
       {(!aluno.relatorios || aluno.relatorios.length === 0) && (
-        <div style={{ display: "flex", justifyContent: "center", marginTop: "20px" }}>
-          <Button
-            backgroundColor="#022651"
-            strokeColor="#5A5858"
-            onClick={() => navigate(`/cadastrar-relatorio/${alunoId}`)}
+        <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
+          <button
+            disabled={desabilitarBotao}
+            onClick={() => !desabilitarBotao && navigate(`/cadastrar-relatorio/${alunoId}`)}
+            style={{
+              width: '100%', 
+              padding: '12px 20px',
+              fontSize: '16px',
+              fontWeight: 'bold',
+              backgroundColor: desabilitarBotao ? '#5A5858' : '#022651',
+              color: '#fff',
+              border: 'none',
+              borderRadius: '8px',
+              cursor: desabilitarBotao ? 'not-allowed' : 'pointer',
+              opacity: desabilitarBotao ? 1 : 1,
+            }}
           >
             Inserir Novo Relatório
-          </Button>
+          </button>
         </div>
       )}
 

@@ -6,7 +6,6 @@ import Button from '../components/Button';
 import { authClient } from '../lib/auth-client'; // Importa o authClient
 import { listStudent } from '../api/listStudent';
  
-
 const Home = () => {
   const navigate = useNavigate();
 
