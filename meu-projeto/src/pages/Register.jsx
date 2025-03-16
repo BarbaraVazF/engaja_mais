@@ -45,8 +45,10 @@ const Register = () => {
 
   return (
     <div className="register-page">
-      <Logo />
-      <h3>Cadastre-se</h3>
+      <div className="logo-container" style={{ display: "flex",  flexDirection: "column",  justifyContent: "center",  alignItems: "center",  width: "100%"  }}>
+          <Logo />
+        <h3>Cadastre-se</h3>
+      </div>
       <form onSubmit={handleSubmit} className="form-container">
         <InputField
           type="text"
