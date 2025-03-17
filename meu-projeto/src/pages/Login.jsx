@@ -45,7 +45,7 @@ const Login = () => {
       <form onSubmit={handleSubmit} className="form-container">
         <InputField
           type="text"
-          placeholder="CPF ou Email"
+          placeholder="Email"
           value={cpfOrEmail}
           onChange={(e) => setCpfOrEmail(e.target.value)}
         />

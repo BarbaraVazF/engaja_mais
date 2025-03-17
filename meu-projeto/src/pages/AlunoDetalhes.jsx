@@ -4,6 +4,7 @@ import Navbar from '../components/Navbar';
 import FuncionalidadePopup from '../components/FuncionalidadePopup';
 import VoltarButton from '../components/VoltarButton';
 import Button from '../components/Button';
+import { getStudent } from '../api/getStudent';
 
 const AlunoDetalhes = () => {
   const { alunoId } = useParams();
@@ -13,19 +14,12 @@ const AlunoDetalhes = () => {
   const [aluno, setAluno] = useState(null);
   const [solicitacoes, setSolicitacoes] = useState([]);
 
+  let params = useParams()
+  
   useEffect(() => {
-    // Recupera o ID do professor logado
-    const professorId = localStorage.getItem('professorId');
 
-    // Recupera a lista de alunos do professor
-    const alunosSalvos = JSON.parse(localStorage.getItem(`alunos_${professorId}`)) || [];
-    const alunoEncontrado = alunosSalvos.find((al) => String(al.id) === String(alunoId));
-    setAluno(alunoEncontrado);
+    getStudent(params.id).then((aluno) => {setAluno(aluno)});
 
-    // Recupera as solicitações do aluno
-    if (alunoEncontrado && alunoEncontrado.solicitacoes) {
-      setSolicitacoes(alunoEncontrado.solicitacoes);
-    }
   }, [alunoId]);
 
   const removerRelatorio = (id) => {
@@ -118,6 +112,7 @@ const AlunoDetalhes = () => {
       <div className="header" style={{ fontSize: '24px', fontWeight: 'bold', marginTop: '100px' }}>
         <VoltarButton />
         <h1>{aluno.nome}</h1>
+        <pre>{JSON.stringify(aluno)}</pre>
       </div>
       
       <h2 style={{ fontSize: '18px' }}>Funcionalidades</h2>
