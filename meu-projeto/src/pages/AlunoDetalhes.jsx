@@ -124,18 +124,19 @@ const AlunoDetalhes = () => {
     return <div>Aluno não encontrado.</div>;
   }
 
+  const handleVoltar = () => {
+    navigate("/");
+  };
+
   return (
     <div className="aluno-detalhes-page">
       <Navbar userName="Bárbara" />
-      <div
-        className="header"
-        style={{ fontSize: "24px", fontWeight: "bold", marginTop: "100px" }}
-      >
-        <VoltarButton />
-        <h1>{aluno.nome}</h1>
+      <div className="header" style={{ display: "flex", alignItems: "center",justifyContent: "flex-start", marginTop: "100px" }}>
+        <div style={{ marginRight: "10px" }}>
+          <VoltarButton onClick={handleVoltar} />
+        </div>
+        <h2 style={{ fontSize: "18px", marginLeft: "10px" }}>Funcionalidades</h2>
       </div>
-
-      <h2 style={{ fontSize: "18px" }}>Funcionalidades</h2>
 
       <div className="funcionalidades">
         {actions &&

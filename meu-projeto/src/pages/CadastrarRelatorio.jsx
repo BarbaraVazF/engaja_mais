@@ -4,17 +4,34 @@ import Navbar from '../components/Navbar';
 import FileUpload from '../components/FileUpload';
 import Button from '../components/Button';
 import VoltarButton from '../components/VoltarButton';
+import { insertReportOnStudent } from '../api/insertReportOnStudent';
 
 const CadastrarRelatorio = () => {
   const { alunoId } = useParams();
   const navigate = useNavigate();
   const [relatorio, setRelatorio] = useState(null);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!relatorio) {
       alert('Por favor, insira um relatório.');
+      return;
+    }
+
+    let formData = new FormData();
+    formData.append('file', relatorio);
+
+    try {
+      const response = await insertReportOnStudent(alunoId, formData);
+      if (response.error) {
+        throw new Error(response.error);
+      }
+      alert('Relatório cadastrado com sucesso!');
+      navigate(`/aluno/${alunoId}`);
+    } catch (error) {
+      console.error('Erro ao cadastrar relatório:', error);
+      alert('Erro ao cadastrar relatório. Tente novamente.');
       return;
     }
 
@@ -52,9 +69,6 @@ const CadastrarRelatorio = () => {
 
       // Atualiza o localStorage
       localStorage.setItem(`alunos_${professorId}`, JSON.stringify(alunosSalvos));
-
-      alert('Relatório cadastrado com sucesso!');
-      navigate(`/aluno/${alunoId}`);
     };
 
     reader.readAsDataURL(relatorio); // Converte o arquivo para data URL
@@ -71,7 +85,7 @@ const CadastrarRelatorio = () => {
         <div className="file-upload-container">
           <FileUpload onChange={(e) => setRelatorio(e.target.files[0])} />
         </div>
-        <Button backgroundColor="#022651" strokeColor="#5A5858" onClick={handleSubmit}>
+        <Button backgroundColor="#022651" strokeColor="#5A5858" type="submit">
           Cadastrar
         </Button>
       </form>

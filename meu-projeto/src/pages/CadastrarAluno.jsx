@@ -20,61 +20,31 @@ const CadastrarAluno = () => {
       return;
     }
 
-    // Converte o arquivo PDF para uma URL de dados
-    const reader = new FileReader();
-    reader.onload = async (e) => {
-      const pdfDataUrl = e.target.result;
-
-      // Cria o objeto do novo aluno
-      const novoAluno = {
-        name: nome,
-        relatorios: relatorio
-          ? [
-              {
-                nome: relatorio.name,
-                data: new Date().toLocaleDateString("pt-BR"),
-                url: pdfDataUrl,
-              },
-            ]
-          : [],
-      };
-
-      try {
-        // Envia os dados do aluno para o backend
-        const response = await addStudent(novoAluno);
-        if (response.error) {
-          alert(response.error);
-        } else {
-          alert("Aluno cadastrado com sucesso!");
-          navigate("/home");
-        }
-      } catch (error) {
-        console.error("Erro ao cadastrar aluno:", error);
-        alert("Erro ao cadastrar aluno.");
+    try {
+      // Envia os dados do aluno para o backend
+      const alunoResponse = await addStudent({ name: nome });
+      if (alunoResponse.error) {
+        throw new Error(alunoResponse.error);
       }
-    };
-
-    if (relatorio) {
-      reader.readAsDataURL(relatorio); // Converte o arquivo para data URL
-    } else {
-      // Se não houver relatório, salva o aluno sem relatório
-      const novoAluno = {
-        name: nome,
-      };
-
-      try {
-        // Envia os dados do aluno para o backend
-        const response = await addStudent(novoAluno);
-        if (response.error) {
-          alert(response.error);
-        } else {
-          alert("Aluno cadastrado com sucesso!");
-          navigate("/home");
+      
+      const alunoId = alunoResponse.id;
+      
+      if (relatorio) {
+        let formData = new FormData();
+        formData.append("file", relatorio);
+        
+        // Envia o relatório para o backend
+        const reportResponse = await insertReportOnStudent(alunoId, formData);
+        if (reportResponse.error) {
+          throw new Error(reportResponse.error);
         }
-      } catch (error) {
-        console.error("Erro ao cadastrar aluno:", error);
-        alert("Erro ao cadastrar aluno.");
       }
+
+      alert("Aluno cadastrado com sucesso!");
+      navigate("/home");
+    } catch (error) {
+      console.error("Erro ao cadastrar aluno:", error);
+      alert("Erro ao cadastrar aluno. Tente novamente.");
     }
   };
 

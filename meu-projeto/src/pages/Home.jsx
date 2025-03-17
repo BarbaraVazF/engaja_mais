@@ -50,7 +50,7 @@ const Home = () => {
   return (
     <div className="home-page">
       <Navbar userName={firstName} />
-      <h1 className="welcome-message">Seja bem-vinda de volta, {firstName}.</h1>
+      <h1 className="welcome-message">Olá de volta, {firstName}.</h1>
 
       <h2>Alunos cadastrados</h2>
       <table className="alunos-table">
