@@ -1,5 +1,10 @@
 import React from "react";
-import { Navigate, redirect, Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import {
+  Navigate,
+  Route,
+  BrowserRouter as Router,
+  Routes,
+} from "react-router-dom";
 import "./App.css";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import { PublicRoute } from "./components/PublicRoute";
@@ -64,9 +69,10 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Navigate to={'/home'}></Navigate>}></Route>
+        <Route path="/" element={<Navigate to={"/home"}></Navigate>}></Route>
         {publicRoutes.map((route) => (
           <Route
+            key={route.path}
             path={route.path}
             element={
               <PublicRoute>
@@ -77,6 +83,7 @@ const App = () => {
         ))}
         {protectedRoutes.map((route) => (
           <Route
+            key={route.path}
             path={route.path}
             element={
               <ProtectedRoute>
