@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import Navbar from '../components/Navbar';
-import FileUpload from '../components/FileUpload';
-import Button from '../components/Button';
-import VoltarButton from '../components/VoltarButton';
-import { insertReportOnStudent } from '../api/insertReportOnStudent';
+import React, { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { insertReportOnStudent } from "../api/insertReportOnStudent";
+import Button from "../components/Button";
+import FileUpload from "../components/FileUpload";
+import Navbar from "../components/Navbar";
+import VoltarButton from "../components/VoltarButton";
 
 const CadastrarRelatorio = () => {
   const { alunoId } = useParams();
@@ -15,63 +15,25 @@ const CadastrarRelatorio = () => {
     e.preventDefault();
 
     if (!relatorio) {
-      alert('Por favor, insira um relatório.');
+      alert("Por favor, insira um relatório.");
       return;
     }
 
     let formData = new FormData();
-    formData.append('file', relatorio);
+    formData.append("file", relatorio);
 
     try {
       const response = await insertReportOnStudent(alunoId, formData);
       if (response.error) {
         throw new Error(response.error);
       }
-      alert('Relatório cadastrado com sucesso!');
+      alert("Relatório cadastrado com sucesso!");
       navigate(`/aluno/${alunoId}`);
     } catch (error) {
-      console.error('Erro ao cadastrar relatório:', error);
-      alert('Erro ao cadastrar relatório. Tente novamente.');
+      console.error("Erro ao cadastrar relatório:", error);
+      alert("Erro ao cadastrar relatório. Tente novamente.");
       return;
     }
-
-    // Recupera o ID do professor logado
-    const professorId = localStorage.getItem('professorId');
-
-    // Recupera a lista de alunos do professor
-    const alunosSalvos = JSON.parse(localStorage.getItem(`alunos_${professorId}`)) || [];
-
-    // Encontra o aluno pelo ID
-    const alunoIndex = alunosSalvos.findIndex((al) => String(al.id) === String(alunoId));
-    if (alunoIndex === -1) {
-      alert('Aluno não encontrado.');
-      return;
-    }
-
-    // Converte o arquivo PDF para uma URL de dados
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      const pdfDataUrl = e.target.result;
-
-      // Cria o objeto do novo relatório
-      const novoRelatorio = {
-        id: Date.now(),
-        nome: relatorio.name,
-        data: new Date().toLocaleDateString('pt-BR'),
-        url: pdfDataUrl,
-      };
-
-      // Adiciona o novo relatório ao aluno
-      alunosSalvos[alunoIndex].relatorios = [
-        ...(alunosSalvos[alunoIndex].relatorios || []),
-        novoRelatorio,
-      ];
-
-      // Atualiza o localStorage
-      localStorage.setItem(`alunos_${professorId}`, JSON.stringify(alunosSalvos));
-    };
-
-    reader.readAsDataURL(relatorio); // Converte o arquivo para data URL
   };
 
   return (
