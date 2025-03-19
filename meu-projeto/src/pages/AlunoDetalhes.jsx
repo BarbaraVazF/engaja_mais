@@ -5,6 +5,7 @@ import { getStudent } from "../api/getStudent";
 import FuncionalidadePopup from "../components/FuncionalidadePopup";
 import Navbar from "../components/Navbar";
 import VoltarButton from "../components/VoltarButton";
+import { deleteReport } from "../api/deleteReport";
 
 const AlunoDetalhes = () => {
   const { alunoId } = useParams();
@@ -16,8 +17,7 @@ const AlunoDetalhes = () => {
   const [actions, setActions] = useState([]);
 
   let params = useParams();
-
-  useEffect(() => {
+  function getAluno(){
     getStudent(params.alunoId).then((aluno) => {
       setAluno(aluno);
     });
@@ -25,27 +25,15 @@ const AlunoDetalhes = () => {
     getActions(params.alunoId).then((actions) => {
       setActions(actions);
     });
+  }
+
+  useEffect(() => {
+    getAluno()
   }, [alunoId]);
 
-  const removerRelatorio = (id) => {
-    const novosRelatorios = aluno.relatorios.filter((rel) => rel.id !== id);
-
-    // Recupera o ID do professor logado
-    const professorId = localStorage.getItem("professorId");
-
-    // Atualiza a lista de alunos no localStorage
-    const alunosAtualizados =
-      JSON.parse(localStorage.getItem(`alunos_${professorId}`)) || [];
-    const alunoIndex = alunosAtualizados.findIndex(
-      (al) => String(al.id) === String(alunoId)
-    );
-    alunosAtualizados[alunoIndex].relatorios = novosRelatorios;
-
-    localStorage.setItem(
-      `alunos_${professorId}`,
-      JSON.stringify(alunosAtualizados)
-    );
-    setAluno({ ...aluno, relatorios: novosRelatorios });
+  const removerRelatorio = async (id) => {
+    await deleteReport(params.alunoId, id)
+    await getAluno()
   };
 
   const removerSolicitacao = (id) => {
@@ -71,7 +59,7 @@ const AlunoDetalhes = () => {
     setSolicitacoes(novasSolicitacoes);
   };
 
-  const desabilitarBotao = aluno?.relatorios && aluno.relatorios.length > 0;
+  const desabilitarBotao = aluno?.report && aluno.report.length > 0;
 
   const handleFuncionalidadeClick = (title) => {
     setPopupTitle(title);
@@ -267,7 +255,7 @@ const AlunoDetalhes = () => {
         </tbody>
       </table>
 
-      {(!aluno.relatorios || aluno.relatorios.length === 0) && (
+      {(!aluno.report || aluno.report.length === 0) && (
         <div
           style={{
             display: "flex",
@@ -293,12 +281,12 @@ const AlunoDetalhes = () => {
               opacity: desabilitarBotao ? 1 : 1,
             }}
           >
-            Inserir Novo Relatório
+            Inserir Relatório
           </button>
         </div>
       )}
 
-      {aluno.relatorios && aluno.relatorios.length > 0 && (
+      {aluno.report && aluno.report.length > 0 && (
         <div
           style={{
             textAlign: "center",
