@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Navigate,
   Route,
@@ -33,7 +32,7 @@ const protectedRoutes = [
     component: AlunoDetalhes,
   },
   {
-    path: "/solicitacao/:funcionalidade",
+    path: "/aluno/:alunoId/solicitacao/:funcionalidade",
     component: Solicitacao,
   },
   {

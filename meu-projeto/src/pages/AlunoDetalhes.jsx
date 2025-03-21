@@ -1,23 +1,23 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { deleteReport } from "../api/deleteReport";
 import { getActions } from "../api/getActions";
 import { getStudent } from "../api/getStudent";
 import FuncionalidadePopup from "../components/FuncionalidadePopup";
 import Navbar from "../components/Navbar";
 import VoltarButton from "../components/VoltarButton";
-import { deleteReport } from "../api/deleteReport";
 
 const AlunoDetalhes = () => {
   const { alunoId } = useParams();
   const navigate = useNavigate();
   const [popupOpen, setPopupOpen] = useState(false);
   const [popupTitle, setPopupTitle] = useState("");
+  const [popupChave, setPopupChave] = useState("");
   const [aluno, setAluno] = useState(null);
-  const [solicitacoes, setSolicitacoes] = useState([]);
   const [actions, setActions] = useState([]);
 
   let params = useParams();
-  function getAluno(){
+  function getAluno() {
     getStudent(params.alunoId).then((aluno) => {
       setAluno(aluno);
     });
@@ -28,77 +28,24 @@ const AlunoDetalhes = () => {
   }
 
   useEffect(() => {
-    getAluno()
+    getAluno();
   }, [alunoId]);
 
   const removerRelatorio = async (id) => {
-    await deleteReport(params.alunoId, id)
-    await getAluno()
-  };
-
-  const removerSolicitacao = (id) => {
-    const novasSolicitacoes = solicitacoes.filter(
-      (solicitacao) => solicitacao.id !== id
-    );
-
-    // Recupera o ID do professor logado
-    const professorId = localStorage.getItem("professorId");
-
-    // Atualiza a lista de alunos no localStorage
-    const alunosAtualizados =
-      JSON.parse(localStorage.getItem(`alunos_${professorId}`)) || [];
-    const alunoIndex = alunosAtualizados.findIndex(
-      (al) => String(al.id) === String(alunoId)
-    );
-    alunosAtualizados[alunoIndex].solicitacoes = novasSolicitacoes;
-
-    localStorage.setItem(
-      `alunos_${professorId}`,
-      JSON.stringify(alunosAtualizados)
-    );
-    setSolicitacoes(novasSolicitacoes);
+    await deleteReport(params.alunoId, id);
+    await getAluno();
   };
 
   const desabilitarBotao = aluno?.report && aluno.report.length > 0;
 
-  const handleFuncionalidadeClick = (title) => {
+  const handleFuncionalidadeClick = (title, chave) => {
     setPopupTitle(title);
+    setPopupChave(chave);
     setPopupOpen(true);
   };
 
   const handleClosePopup = () => {
     setPopupOpen(false);
-  };
-
-  const handleGerarSolicitacao = (title) => {
-    const novaSolicitacao = {
-      id: Date.now(),
-      titulo: title,
-      data: new Date().toLocaleDateString("pt-BR"),
-    };
-
-    // Atualiza o estado de solicitações
-    const novasSolicitacoes = [...solicitacoes, novaSolicitacao];
-    setSolicitacoes(novasSolicitacoes);
-
-    // Recupera o ID do professor logado
-    const professorId = localStorage.getItem("professorId");
-
-    // Atualiza a lista de alunos no localStorage
-    const alunosAtualizados =
-      JSON.parse(localStorage.getItem(`alunos_${professorId}`)) || [];
-    const alunoIndex = alunosAtualizados.findIndex(
-      (al) => String(al.id) === String(alunoId)
-    );
-    alunosAtualizados[alunoIndex].solicitacoes = novasSolicitacoes;
-
-    localStorage.setItem(
-      `alunos_${professorId}`,
-      JSON.stringify(alunosAtualizados)
-    );
-
-    // Redireciona para a tela de solicitação
-    navigate(`/solicitacao/${encodeURIComponent(title)}`);
   };
 
   const handleDownloadRelatorio = (url, nome) => {
@@ -119,11 +66,21 @@ const AlunoDetalhes = () => {
   return (
     <div className="aluno-detalhes-page">
       <Navbar userName="Bárbara" />
-      <div className="header" style={{ display: "flex", alignItems: "center",justifyContent: "flex-start", marginTop: "100px" }}>
+      <div
+        className="header"
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "flex-start",
+          marginTop: "100px",
+        }}
+      >
         <div style={{ marginRight: "10px" }}>
           <VoltarButton onClick={handleVoltar} />
         </div>
-        <h2 style={{ fontSize: "18px", marginLeft: "10px" }}>Funcionalidades</h2>
+        <h2 style={{ fontSize: "18px", marginLeft: "10px" }}>
+          Funcionalidades
+        </h2>
       </div>
 
       <div className="funcionalidades">
@@ -144,7 +101,7 @@ const AlunoDetalhes = () => {
                   margin: "5px",
                   cursor: "pointer",
                 }}
-                onClick={() => handleFuncionalidadeClick(func.title)}
+                onClick={() => handleFuncionalidadeClick(func.title, func.key)}
               >
                 {func.title}
               </button>
@@ -165,14 +122,14 @@ const AlunoDetalhes = () => {
           </tr>
         </thead>
         <tbody>
-          {solicitacoes.length > 0 ? (
-            solicitacoes.map((solicitacao) => (
+          {aluno.requests > 0 ? (
+            aluno.requests.map((solicitacao) => (
               <tr key={solicitacao.id}>
                 <td>{solicitacao.titulo}</td>
                 <td>{solicitacao.data}</td>
                 <td>
                   <button
-                    onClick={() => removerSolicitacao(solicitacao.id)}
+                    // onClick={() => removerSolicitacao(solicitacao.id)}
                     style={{
                       border: "none",
                       background: "none",
@@ -302,11 +259,9 @@ const AlunoDetalhes = () => {
       {popupOpen && (
         <FuncionalidadePopup
           title={popupTitle}
+          chave={popupChave}
+          alunoId={alunoId}
           onClose={handleClosePopup}
-          onGerar={() => {
-            handleGerarSolicitacao(popupTitle);
-            handleClosePopup();
-          }}
         />
       )}
     </div>

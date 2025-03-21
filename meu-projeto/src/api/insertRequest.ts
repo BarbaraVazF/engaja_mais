@@ -1,11 +1,11 @@
 import { api } from "./api";
 
-export async function insertReportOnStudent(id: string, body:{type:string,title:string,meta?:object}) {
-  
+export async function insertRequest(
+  id: string,
+  body: { categoria: string; title: string; meta?: object }
+) {
   try {
-    const config = {     
-    } 
-    const response = await api.post(`/student/${id}/request`, body, config);
+    const response = await api.post(`/student/${id}/request`, body);
     return response.data;
   } catch (error) {
     console.error("Erro ao cadastrar funcionalidade:", error);
