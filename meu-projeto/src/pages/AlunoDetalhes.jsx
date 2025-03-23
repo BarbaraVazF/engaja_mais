@@ -122,11 +122,11 @@ const AlunoDetalhes = () => {
           </tr>
         </thead>
         <tbody>
-          {aluno.requests > 0 ? (
+          {aluno.requests && aluno.requests.length > 0 ? (
             aluno.requests.map((solicitacao) => (
               <tr key={solicitacao.id}>
-                <td>{solicitacao.titulo}</td>
-                <td>{solicitacao.data}</td>
+                <td>{solicitacao.title}</td>
+                <td>{solicitacao.date}</td>
                 <td>
                   <button
                     // onClick={() => removerSolicitacao(solicitacao.id)}

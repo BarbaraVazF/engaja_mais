@@ -1,11 +1,11 @@
 import { api } from "./api";
 
-export async function insertRequest(id:string, id_request:string) {
+export async function insertRequest(id, requestData) {
   try {
-    const response = await api.get(`/student/${id}/request/${id_request}`);
+    const response = await api.post(`/student/${id}/request`, requestData);
     return response.data;
   } catch (error) {
-    console.error("Erro ao visualizar request:", error);
-    return { error: "Erro ao visualizar request." };
+    console.error("Erro ao inserir request:", error);
+    return { error: "Erro ao inserir request." };
   }
 }

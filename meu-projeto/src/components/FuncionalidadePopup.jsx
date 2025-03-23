@@ -79,7 +79,7 @@ const FuncionalidadePopup = ({ alunoId, title, chave, onClose }) => {
           >
             <input
               type="text"
-              placeholder="Conteúdo / Matéria"
+              placeholder="Conteúdo (ex: Guerra Fria)"
               value={conteudoMateria}
               onChange={(e) => setConteudoMateria(e.target.value)}
               className="custom-input"
