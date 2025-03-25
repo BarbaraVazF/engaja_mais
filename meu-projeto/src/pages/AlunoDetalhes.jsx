@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { deleteReport } from "../api/deleteReport";
 import { getActions } from "../api/getActions";
 import { getStudent } from "../api/getStudent";
@@ -91,7 +91,10 @@ const AlunoDetalhes = () => {
               <button
                 key={index}
                 style={{
-                  backgroundColor: corComOpacidade,
+                  backgroundColor:
+                    aluno.report && aluno.report.length === 0
+                      ? "#d3d3d3" // Cor cinza se não houver relatórios
+                      : corComOpacidade,
                   border: `2px solid ${func.color}`,
                   color: "black",
                   fontSize: "14px",
@@ -99,9 +102,14 @@ const AlunoDetalhes = () => {
                   padding: "10px 15px",
                   borderRadius: "8px",
                   margin: "5px",
-                  cursor: "pointer",
+                  cursor: aluno.report && aluno.report.length === 0 ? "not-allowed" : "pointer", // Desabilita o clique
                 }}
-                onClick={() => handleFuncionalidadeClick(func.title, func.key)}
+                onClick={() => {
+                  if (aluno.report && aluno.report.length > 0) {
+                    handleFuncionalidadeClick(func.title, func.key);
+                  }
+                }}
+                disabled={aluno.report && aluno.report.length === 0} // Desabilita o botão
               >
                 {func.title}
               </button>
@@ -125,8 +133,8 @@ const AlunoDetalhes = () => {
           {aluno.requests && aluno.requests.length > 0 ? (
             aluno.requests.map((solicitacao) => (
               <tr key={solicitacao.id}>
-                <td>{solicitacao.title}</td>
-                <td>{solicitacao.date}</td>
+                <td><Link to={`/aluno/${aluno.id}/solicitacao/${solicitacao.id}`}>{solicitacao.title}</Link></td>
+                <td>{solicitacao.createdAt}</td>
                 <td>
                   <button
                     // onClick={() => removerSolicitacao(solicitacao.id)}

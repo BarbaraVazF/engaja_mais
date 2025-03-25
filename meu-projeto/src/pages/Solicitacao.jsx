@@ -1,16 +1,26 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import VoltarButton from '../components/VoltarButton';
 import jsPDF from 'jspdf'; // Certifique-se de que a biblioteca está instalada
+import { getRequest } from '../api/getRequest';
 
 const Solicitacao = () => {
   const navigate = useNavigate();
-  const { funcionalidade } = useParams();
+  const { alunoId,requestId } = useParams();
   const [isEditing, setIsEditing] = useState(false);
-  const [text, setText] = useState(`Funcionalidade "${decodeURIComponent(funcionalidade)}" está em preparo...\nteste para ocupar espaço.../nteste para ocupar espaço.../nteste para ocupar espaço.../nteste para ocupar espaço.../nteste para ocupar espaço.../nteste para ocupar espaço.../nteste para ocupar espaço...\nteste para ocupar espaço.../nteste para ocupar espaço.../nteste para ocupar espaço.../nteste para ocupar espaço...\nteste para ocupar espaço...\nteste para ocupar espaço...`);
+  const [text, setText] = useState(``);
   
   const [originalText, setOriginalText] = useState(text);
+  const params = useParams();
+
+  const [request, setRequest] = useState();
+
+  useEffect(() => {
+    getRequest(params.alunoId,params.requestId).then((request) => {
+      setRequest(request);
+    });
+  },[])
 
   const handleEditClick = () => {
     setOriginalText(text);
@@ -56,8 +66,6 @@ const Solicitacao = () => {
       y += lineHeight; // Avança para a próxima linha
     });
 
-    // Salva o PDF com o nome do relatório
-    doc.save(`Relatorio_${decodeURIComponent(funcionalidade)}.pdf`);
   };
 
   return (
@@ -65,7 +73,7 @@ const Solicitacao = () => {
       <Navbar userName="Bárbara" />
       <div className="header">
         <VoltarButton />
-        <h1>{decodeURIComponent(funcionalidade)}</h1>
+        <h1>{request && request.title}</h1>
       </div>
 
       {/* Box de texto editável */}
@@ -121,7 +129,7 @@ const Solicitacao = () => {
           <div>
             {/* Box de texto editável com largura maior quando editando */}
             <textarea
-              value={text}
+              value={JSON.stringify(request)}
               onChange={(e) => setText(e.target.value)}
               style={{
                 width: '100%',
@@ -166,7 +174,7 @@ const Solicitacao = () => {
             </div>
           </div>
         ) : (
-          text
+          JSON.stringify(request)
         )}
       </div>
     </div>

@@ -32,7 +32,7 @@ const protectedRoutes = [
     component: AlunoDetalhes,
   },
   {
-    path: "/aluno/:alunoId/solicitacao/:funcionalidade",
+    path: "/aluno/:alunoId/solicitacao/:requestId",
     component: Solicitacao,
   },
   {

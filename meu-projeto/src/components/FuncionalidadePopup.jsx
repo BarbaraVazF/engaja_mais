@@ -136,9 +136,12 @@ const FuncionalidadePopup = ({ alunoId, title, chave, onClose }) => {
             onClick={onGerar}
             className="custom-button"
             disabled={isButtonDisabled}
+            style={{
+              backgroundColor: isButtonDisabled ? "#d3d3d3" : "", // Cinza quando desativado
+              cursor: isButtonDisabled ? "not-allowed" : "pointer", // Cursor de 'não permitido' quando desativado
+            }}
           >
             Gerar
-            {isButtonDisabled}
           </button>
         </div>
       </div>
