@@ -6,6 +6,7 @@ import { getStudent } from "../api/getStudent";
 import FuncionalidadePopup from "../components/FuncionalidadePopup";
 import Navbar from "../components/Navbar";
 import VoltarButton from "../components/VoltarButton";
+import { deleteRequest } from "../api/deleteRequest";
 
 const AlunoDetalhes = () => {
   const { alunoId } = useParams();
@@ -36,6 +37,11 @@ const AlunoDetalhes = () => {
     await getAluno();
   };
 
+  const removerSolicitacao = async (id) => {
+    await deleteRequest(params.alunoId, id);
+    await getAluno();
+  };
+
   const desabilitarBotao = aluno?.report && aluno.report.length > 0;
 
   const handleFuncionalidadeClick = (title, chave) => {
@@ -48,10 +54,14 @@ const AlunoDetalhes = () => {
     setPopupOpen(false);
   };
 
-  const handleDownloadRelatorio = (url, nome) => {
+  const handleDownloadRelatorio = ({content, title}) => {
+    const uint8Array = new Uint8Array(Object.values(content));
+    const blob = new Blob([uint8Array], { type: "application/pdf" });
+    const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
-    link.download = nome;
+    link.download = title;
+    document.body.appendChild(link)
     link.click();
   };
 
@@ -95,7 +105,7 @@ const AlunoDetalhes = () => {
                     aluno.report && aluno.report.length === 0
                       ? "#d3d3d3" // Cor cinza se não houver relatórios
                       : corComOpacidade,
-                  border: `2px solid ${func.color}`,
+                    border: `2px solid ${aluno.report && aluno.report.length > 0 ? func.color : "#d3d3d3"}`,
                   color: "black",
                   fontSize: "14px",
                   fontWeight: "bold",
@@ -137,7 +147,7 @@ const AlunoDetalhes = () => {
                 <td>{solicitacao.createdAt}</td>
                 <td>
                   <button
-                    // onClick={() => removerSolicitacao(solicitacao.id)}
+                    onClick={() => removerSolicitacao(solicitacao.id)}
                     style={{
                       border: "none",
                       background: "none",
@@ -175,7 +185,7 @@ const AlunoDetalhes = () => {
           {aluno.report && aluno.report.length > 0 ? (
             aluno.report.map((rel) => (
               <tr key={rel.id}>
-                <td>{rel.createdAt}</td>
+                <td>{rel.title}</td>
                 <td>{rel.createdAt}</td>
                 <td>
                   <button
@@ -195,7 +205,7 @@ const AlunoDetalhes = () => {
                     />
                   </button>
                   <button
-                    onClick={() => handleDownloadRelatorio(rel.url, rel.nome)}
+                    onClick={() => handleDownloadRelatorio(rel)}
                     style={{
                       border: "none",
                       background: "none",

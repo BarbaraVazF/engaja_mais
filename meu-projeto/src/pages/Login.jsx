@@ -5,12 +5,21 @@ import Button from "../components/Button";
 import InputField from "../components/InputField";
 import Logo from "../components/Logo";
 import { authClient } from "../lib/auth-client";
+import { createAuthClient } from "better-auth/client"
 
 const Login = () => {
   const [cpfOrEmail, setCpfOrEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
+  const authClient =  createAuthClient()
+  
+  const signIn = async () => {
+      const data = await authClient.signIn.social({
+          provider: "google"
+      })
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -69,6 +78,7 @@ const Login = () => {
       <p className="link" onClick={() => navigate("/esqueci-senha")}>
         Esqueci minha senha
       </p>
+      <button className="google-login-button" onClick={signIn}>Entrar com Google</button>
     </div>
   );
 };

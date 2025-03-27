@@ -1,6 +1,6 @@
 import { api } from "./api";
 
-export async function deleteReport(id, requestId) {
+export async function deleteRequest(id, requestId) {
   try {
     const response = await api.delete(`/student/${id}/request/${requestId}`);
     return response.data;
