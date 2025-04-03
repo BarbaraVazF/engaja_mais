@@ -129,7 +129,7 @@ const Solicitacao = () => {
           <div>
             {/* Box de texto editável com largura maior quando editando */}
             <textarea
-              value={JSON.stringify(request)}
+              value={request.content}
               onChange={(e) => setText(e.target.value)}
               style={{
                 width: '100%',
@@ -174,7 +174,7 @@ const Solicitacao = () => {
             </div>
           </div>
         ) : (
-          JSON.stringify(request)
+          request.content 
         )}
       </div>
     </div>

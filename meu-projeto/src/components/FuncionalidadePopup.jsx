@@ -59,7 +59,7 @@ const FuncionalidadePopup = ({ alunoId, title, chave, onClose }) => {
       meta,
     });
 
-    navigate(`/aluno/${alunoId}/solicitacao/${solicitacao.id}`);
+    navigate(`/aluno/${alunoId}`);
   }
 
   return (
