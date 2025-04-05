@@ -4,6 +4,7 @@ import Navbar from '../components/Navbar';
 import VoltarButton from '../components/VoltarButton';
 import jsPDF from 'jspdf'; // Certifique-se de que a biblioteca está instalada
 import { getRequest } from '../api/getRequest';
+import Markdown from 'https://esm.sh/react-markdown@10'
 
 const Solicitacao = () => {
   const navigate = useNavigate();
@@ -69,9 +70,28 @@ const Solicitacao = () => {
   };
 
   return (
-    <div className="solicitacao-page">
-      <Navbar userName="Bárbara" />
-      <div className="header">
+    <div className="solicitacao-page" style={{
+      position: 'relative',
+      paddingTop: '70px', // Esse padding empurra o conteúdo abaixo da navbar
+      minHeight: '100vh',
+    }}>
+      <Navbar
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '60px',
+          backgroundColor: '#fff',
+          zIndex: 1000,
+          display: 'flex',
+          alignItems: 'center',
+          padding: '0 20px',
+          boxShadow: '0 2px 5px rgba(0,0,0,0.1)',
+        }}
+        userName="Bárbara"
+      />
+      <div className="header" style={{ display: 'flex', alignItems: 'center', gap: '16px', padding: '0 20px', marginTop: '30px' }}>
         <VoltarButton />
         <h1>{request && request.title}</h1>
       </div>
@@ -84,7 +104,6 @@ const Solicitacao = () => {
         width: '80%',
         boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.2)',
         borderRadius: '10px',
-        textAlign: 'center',
         fontSize: '18px',
         fontWeight: 'bold',
         position: 'relative',
@@ -138,7 +157,6 @@ const Solicitacao = () => {
                 outline: 'none',
                 fontSize: '18px',
                 fontWeight: 'bold',
-                textAlign: 'center',
                 resize: 'none',
               }}
             />
@@ -174,7 +192,8 @@ const Solicitacao = () => {
             </div>
           </div>
         ) : (
-          request.content 
+          request && request.content &&
+          <Markdown>{request.content}</Markdown>
         )}
       </div>
     </div>
