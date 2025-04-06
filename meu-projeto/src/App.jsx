@@ -15,7 +15,6 @@ import Home from "./pages/Home";
 import InserirCodigo from "./pages/InserirCodigo";
 import Login from "./pages/Login";
 import RedefinirSenha from "./pages/RedefinirSenha";
-import Register from "./pages/Register";
 import Solicitacao from "./pages/Solicitacao";
 
 const protectedRoutes = [
@@ -45,10 +44,6 @@ const publicRoutes = [
   {
     path: "/login",
     component: Login,
-  },
-  {
-    path: "/register",
-    component: Register,
   },
   {
     path: "/esqueci-senha",

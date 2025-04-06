@@ -1,84 +1,86 @@
 // src/components/Login.jsx
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
-import Button from "../components/Button";
-import InputField from "../components/InputField";
 import Logo from "../components/Logo";
-import { authClient } from "../lib/auth-client";
-import { createAuthClient } from "better-auth/client"
+import { createAuthClient } from "better-auth/client";
 
 const Login = () => {
-  const [cpfOrEmail, setCpfOrEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const authClient = createAuthClient();
 
-  const authClient =  createAuthClient()
-  
   const signIn = async () => {
-      const data = await authClient.signIn.social({
-          provider: "google"
-      })
-  }
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-
     try {
-      const response = await authClient.signIn.email({
-        email: cpfOrEmail,
-        password: password,
+      const data = await authClient.signIn.social({
+        provider: "google",
       });
-      console.log(response);
 
-      if (!response.error) {
+      if (!data.error) {
         navigate("/home");
       } else {
-        alert(response.error.message || "Erro ao fazer login");
+        alert(data.error.message || "Erro ao fazer login com o Google");
       }
     } catch (error) {
-      alert("Falha na autenticação. Verifique suas credenciais.");
+      alert("Falha ao autenticar com o Google.");
       console.error(error);
-    } finally {
-      setLoading(false);
     }
   };
 
   return (
-    <div className="login-page">
-      <div className="logo-container" style={{ display: "flex",  flexDirection: "column",  justifyContent: "center",  alignItems: "center",  width: "100%"  }}>
-        <Logo />
-        <h3>Entrar</h3>
+    <div
+      className="login-page"
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        height: "100vh",
+        padding: "20px",
+        textAlign: "center",
+      }}
+    >
+      <div
+        className="logo-container"
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          marginBottom: "40px",
+        }}
+      >
+        <div style={{ transform: "scale(1.5)", marginBottom: "20px" }}>
+          <Logo />
+        </div>
+        <h3 style={{ fontSize: "18px", marginTop: 10 }}>Entrar na plataforma</h3>
       </div>
-      <form onSubmit={handleSubmit} className="form-container">
-        <InputField
-          type="text"
-          placeholder="Email"
-          value={cpfOrEmail}
-          onChange={(e) => setCpfOrEmail(e.target.value)}
+
+      <button
+        className="google-login-button"
+        onClick={signIn}
+        style={{
+          backgroundColor: "#ffffff",
+          border: "1px solid #ccc",
+          borderRadius: "6px",
+          padding: "12px 24px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: "12px",
+          cursor: "pointer",
+          boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
+          width: "500px", // menor largura para melhor centralização
+          maxWidth: "90%",
+        }}
+      >
+        <img
+          src="/google.png"
+          alt="Google logo"
+          style={{ width: "24px", height: "24px" }}
         />
-        <InputField
-          type="password"
-          placeholder="Senha"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <Button
-          backgroundColor="#022651"
-          strokeColor="#5A5858"
-          disabled={loading}
-        >
-          {loading ? "Entrando..." : "Entrar"}
-        </Button>
-      </form>
-      <p className="link" onClick={() => navigate("/register")}>
-        Não tem uma conta? Cadastre-se
-      </p>
-      <p className="link" onClick={() => navigate("/esqueci-senha")}>
-        Esqueci minha senha
-      </p>
-      <button className="google-login-button" onClick={signIn}>Entrar com Google</button>
+        <span style={{ fontSize: "16px", fontWeight: "500" }}>
+          Entrar com Google
+        </span>
+      </button>
     </div>
   );
 };

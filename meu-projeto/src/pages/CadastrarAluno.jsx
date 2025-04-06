@@ -6,6 +6,7 @@ import FileUpload from "../components/FileUpload";
 import InputField from "../components/InputField";
 import Navbar from "../components/Navbar";
 import VoltarButton from "../components/VoltarButton";
+import { insertReportOnStudent } from "../api/insertReportOnStudent";
 
 const CadastrarAluno = () => {
   const [nome, setNome] = useState("");
