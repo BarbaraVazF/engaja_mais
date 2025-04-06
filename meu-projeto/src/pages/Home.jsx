@@ -67,7 +67,7 @@ const Home = () => {
               <td>
                 <Link to={`/aluno/${aluno.id}`}>{aluno.name}</Link>
               </td>
-              <td>{aluno.createdAt}</td>
+              <td>{new Date(aluno.createdAt).toLocaleDateString("pt-BR")}</td>
               <td>
                 <button onClick={() => removerAluno(aluno.id)} className="apagar-button">
                   <img src="/apagar_aluno.png" alt="Apagar" width="20" height="20" />

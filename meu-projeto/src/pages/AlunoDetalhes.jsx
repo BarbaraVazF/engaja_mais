@@ -144,7 +144,7 @@ const AlunoDetalhes = () => {
             aluno.requests.map((solicitacao) => (
               <tr key={solicitacao.id}>
                 <td><Link to={`/aluno/${aluno.id}/solicitacao/${solicitacao.id}`}>{solicitacao.title}</Link></td>
-                <td>{solicitacao.createdAt}</td>
+                <td>{new Date(solicitacao.createdAt).toLocaleDateString("pt-BR")}</td>
                 <td>
                   <button
                     onClick={() => removerSolicitacao(solicitacao.id)}
@@ -186,7 +186,7 @@ const AlunoDetalhes = () => {
             aluno.report.map((rel) => (
               <tr key={rel.id}>
                 <td>{rel.title}</td>
-                <td>{rel.createdAt}</td>
+                <td>{new Date(rel.createdAt).toLocaleDateString("pt-BR")}</td>
                 <td>
                   <button
                     onClick={() => removerRelatorio(rel.id)}
