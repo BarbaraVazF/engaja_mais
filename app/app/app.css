@@ -1,0 +1,578 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+
+a:hover {
+  color: #535bf2;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100svh;
+  height: 100svh;
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+  color: #0a0a0a;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 1200px;
+  margin: auto;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+
+button:hover {
+  border-color: #646cff;
+}
+
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+
+  a:hover {
+    color: #747bff;
+  }
+
+  button {
+    background-color: #f9f9f9;
+  }
+}
+
+.cadastrar-aluno-page {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.cadastrar-aluno-page h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.cadastrar-aluno-page form {
+  display: flex;
+  flex-direction: column;
+}
+
+.cadastrar-aluno-page label {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.cadastrar-aluno-page input,
+.cadastrar-aluno-page textarea {
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.cadastrar-aluno-page textarea {
+  height: 150px;
+  resize: vertical;
+}
+
+.cadastrar-aluno-page button {
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.cadastrar-aluno-page button:hover {
+  background-color: #0056b3;
+}
+
+/* Estilos globais */
+
+/* Logo */
+.logo img {
+  width: 150px;
+  /* Logo um pouco menor */
+}
+
+/* Container do formulário */
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 906px;
+  /* Largura máxima das caixas de texto */
+  background-color: transparent;
+}
+
+.google-login-button {
+  width: 100%;
+  max-width: 906px;
+  padding: 10px;
+  border: 1px solid #ccc; /* Mesma borda dos campos de entrada */
+  border-radius: 5px; /* Ajuste conforme o design dos inputs */
+  background-color: white; /* Fundo branco como um campo de texto */
+  color: #333; /* Cor do texto */
+  font-size: 16px;
+  text-align: center;
+  cursor: pointer;
+  margin-top: 10px; /* Espaço entre o botão e os campos acima */
+  transition: background-color 0.3s ease;
+}
+
+.google-login-button:hover {
+  background-color: #f5f5f5; /* Efeito de hover */
+}
+
+/* Campos de entrada */
+.input-field {
+  width: 906px;
+  height: 24px;
+  /* Altura reduzida */
+  background-color: #f2f2f2;
+  border: 1px solid #cfcece;
+  color: #000;
+  border-radius: 4px;
+  padding: 10px;
+  margin-bottom: 15px;
+  font-size: 16px;
+}
+
+/* Botões */
+.custom-button {
+  width: 926px;
+  /* Largura ajustada */
+  height: 40px;
+  /* Altura reduzida */
+  border-radius: 4px;
+  font-size: 16px;
+  color: white;
+  cursor: pointer;
+  margin-bottom: 15px;
+  background-color: #022651;
+  border: 1px solid #5a5858;
+}
+
+.custom-button:hover {
+  background-color: #014080;
+}
+
+/* Links */
+.link {
+  color: #022651;
+  cursor: pointer;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  /* Espaço entre a logo e o círculo do usuário */
+  align-items: center;
+  width: 100%;
+  padding: 10px 20px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+/* Container da logo */
+.logo-container {
+  margin-left: 20px;
+  /* Margem à esquerda */
+}
+
+/* Círculo do usuário */
+.user-circle {
+  width: 40px;
+  height: 40px;
+  background-color: #022651;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  margin-right: 60px;
+  /* Margem à direita */
+}
+
+/* Funcionalidades */
+.funcionalidades button {
+  width: 100%;
+  padding: 15px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  color: black;
+}
+
+/* Estilos para a tela Home */
+.home-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 906px;
+  /* Largura máxima */
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Mensagem de boas-vindas */
+.welcome-message {
+  font-size: 20px;
+  /* Tamanho menor */
+  color: #022651;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Tabela de alunos cadastrados */
+.alunos-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.alunos-table th,
+.alunos-table td {
+  border: 1px solid #cfcece;
+  padding: 10px;
+  text-align: left;
+}
+
+.alunos-table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+/* Relatórios */
+.relatorios {
+  margin-top: 20px;
+}
+
+/* Popup */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popup {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  width: 100%;
+  text-align: center;
+}
+
+.popup h2 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #333;
+}
+
+.popup p {
+  margin-bottom: 20px;
+  font-size: 16px;
+  color: #555;
+}
+
+.popup-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.popup-buttons button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.popup-buttons button:first-child {
+  background-color: #6c757d;
+  color: white;
+}
+
+.popup-buttons button:first-child:hover {
+  background-color: #5a6268;
+}
+
+.popup-buttons button:last-child {
+  background-color: #007bff;
+  color: white;
+}
+
+.popup-buttons button:last-child:hover {
+  background-color: #0056b3;
+}
+
+/* Estilos para o botão de apagar */
+.apagar-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.apagar-button img {
+  width: 20px;
+  height: 20px;
+}
+
+/* Tela de cadastro de aluno */
+.cadastrar-aluno-page {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 906px;
+  margin-top: 80px;
+  padding: 20px;
+  box-shadow: none;
+  /* Garante que não há sombra */
+  background-color: transparent;
+}
+
+/* Header (título e botão de voltar) */
+.header {
+  display: flex;
+  align-items: center;
+  /* Centraliza verticalmente */
+  justify-content: center;
+  /* Centraliza horizontalmente */
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.header h1 {
+  font-size: 24px;
+  color: #022651;
+  margin-left: 10px;
+}
+
+/* Upload de arquivo */
+.file-upload-container {
+  width: 906px;
+  margin-bottom: 20px;
+}
+
+.file-upload-container label {
+  font-size: 16px;
+  color: #022651;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.file-upload-container p {
+  font-size: 14px;
+  color: #555;
+  margin-top: 10px;
+}
+
+/* Botão de voltar */
+.voltar-button {
+  all: unset;
+  /* Reseta estilos herdados */
+  background: transparent !important;
+  /* Fundo branco */
+  border: none;
+  cursor: pointer;
+  padding: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 2px;
+}
+
+.voltar-button img {
+  width: 28px;
+  /* Tamanho bem pequeno */
+  height: 28px;
+  /* Tamanho bem pequeno */
+}
+
+.cadastrar-aluno-page {
+  box-shadow: none !important;
+  /* Sobrescreve qualquer sombra aplicada */
+}
+
+/* Estilos para o popup */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  max-width: 300px;
+}
+
+.popup h2 {
+  margin-bottom: 10px;
+  font-size: 22px;
+  font-weight: bold;
+  color: #000000;
+  /* Letra preta */
+}
+
+.popup p {
+  margin: 5px 0;
+  /* Reduz o espaçamento entre os textos */
+  font-size: 18px;
+  color: #000000;
+  /* Letra preta */
+}
+
+.popup-buttons {
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.popup-buttons button {
+  padding: 8px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  color: #fff;
+}
+
+.relatorios-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  /* Sombra leve */
+}
+
+.relatorios-table th,
+.relatorios-table td {
+  border: 1px solid #cfcece;
+  padding: 12px;
+  text-align: left;
+}
+
+.relatorios-table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+  color: #022651;
+}
+
+.relatorios-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.relatorios-table tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* Estilos para o botão de inserir novo relatório */
+.inserir-relatorio-button {
+  width: 100%;
+  max-width: 926px;
+  height: 40px;
+  border-radius: 4px;
+  font-size: 16px;
+  color: white;
+  cursor: pointer;
+  margin-bottom: 15px;
+  background-color: #022651;
+  border: 1px solid #5a5858;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.inserir-relatorio-button:hover {
+  background-color: #014080;
+}
