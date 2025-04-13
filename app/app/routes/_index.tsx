@@ -35,41 +35,45 @@ export default function Home({ loaderData }: Route.ComponentProps) {
   const firstName = userName.split(" ")[0];
 
   return (
-    <div>
+    <div> 
       <Navbar userName={firstName} />
-      <h1 className="welcome-message" style={{ marginTop: "100px" }}>
-        Olá de volta, {firstName}.
-      </h1>
+      <div className="home-page">
+        <h1 className="welcome-message" style={{ marginTop: "30px", fontSize: "24px"  }}>
+          Olá, {firstName}.
+        </h1>
 
-      <h2>Alunos cadastrados</h2>
-      <table className="alunos-table">
-        <thead>
-          <tr>
-            <th>Nome</th>
-            <th>Data de cadastro</th>
-            <th>Apagar</th>
-          </tr>
-        </thead>
-        <tbody>
-          {alunos.map((aluno) => (
-            <tr key={aluno.id}>
-              <td>
-                <Link to={`/aluno/${aluno.id}`}>{aluno.name}</Link>
-              </td>
-              <td>{new Date(aluno.createdAt).toLocaleDateString("pt-BR")}</td>
-              <td></td>
+        <h3 style={{ fontSize: "22px"  }}>Alunos cadastrados</h3>
+        <table className="alunos-table">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Data de cadastro</th>
+              <th>Apagar</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {alunos.map((aluno) => (
+              <tr key={aluno.id}>
+                <td>
+                  <Link to={`/aluno/${aluno.id}`}>{aluno.name}</Link>
+                </td>
+                <td>{new Date(aluno.createdAt).toLocaleDateString("pt-BR")}</td>
+                <td><button className="apagar-button">
+                  <img src="/apagar_aluno.png" alt="Apagar" width="20" height="20" />
+                </button></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
 
-      <Button
-        backgroundColor="#022651"
-        strokeColor="#5A5858"
-        onClick={() => navigate("/cadastrar-aluno")}
-      >
-        + Cadastrar novo aluno
-      </Button>
+        <Button
+          backgroundColor="#022651"
+          strokeColor="#5A5858"
+          onClick={() => navigate("/cadastrar-aluno")}
+        >
+          + Cadastrar novo aluno
+        </Button>
+      </div>    
     </div>
   );
 }

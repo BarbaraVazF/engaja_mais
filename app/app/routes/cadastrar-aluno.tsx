@@ -49,34 +49,33 @@ export default function CadastrarAluno() {
   };
 
   return (
-    <div
-      className="cadastrar-aluno-page"
-      style={{ backgroundColor: "transparent" }}
-    >
+    <div style={{ backgroundColor: "transparent" }}>
       <Navbar />
-      <div className="header">
-        <VoltarButton />
-        <h1>Cadastrar Novo Aluno</h1>
-      </div>
-      <form
-        onSubmit={handleSubmit}
-        className="form-container"
-        encType="multipart/form-data"
-      >
-        <InputField
-          type="text"
-          placeholder="Nome do Aluno"
-          value={nome}
-          onChange={(e) => setNome(e.target.value)}
-          required
-        />
-        <div className="file-upload-container">
-          <FileUpload onChange={(e: any) => setRelatorio(e.target.files[0])} />
+      <div className="cadastrar-aluno-page" >
+        <div className="header" >
+          <VoltarButton />
+          <h1>Cadastrar Novo Aluno</h1>
         </div>
-        <Button backgroundColor="#022651" strokeColor="#5A5858" type="submit">
-          Cadastrar
-        </Button>
-      </form>
+        <form
+          onSubmit={handleSubmit}
+          className="form-container"
+          encType="multipart/form-data"
+        >
+          <InputField
+            type="text"
+            placeholder="Nome do Aluno"
+            value={nome}
+            onChange={(e) => setNome(e.target.value)}
+            required
+          />
+          <div className="file-upload-container">
+            <FileUpload onChange={(e: any) => setRelatorio(e.target.files[0])} />
+          </div>
+          <Button backgroundColor="#022651" strokeColor="#5A5858" type="submit">
+            Cadastrar
+          </Button>
+        </form>
+      </div>
     </div>
   );
 }

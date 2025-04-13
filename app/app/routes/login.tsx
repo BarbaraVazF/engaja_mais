@@ -66,6 +66,7 @@ export default function Login() {
           boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
           width: "500px", // menor largura para melhor centralização
           maxWidth: "90%",
+          marginTop: "-10px",
         }}
       >
         <img
