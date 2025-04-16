@@ -1,7 +1,24 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 
-const FuncionalidadePopup = ({ alunoId, title, chave, onClose }) => {
+interface FuncionalidadePopupProps {
+  alunoId: string; // Replace 'string' with the appropriate type if needed
+  title: string;
+  chave: "LEARN_PLAN" | "MATERIALS" | "GAMIFICATION" | "EVALUATION_MODEL";
+  onClose: () => void;
+}
+
+interface Meta {
+  content?: string;
+  lessons?: string;
+}
+
+const FuncionalidadePopup: React.FC<FuncionalidadePopupProps> = ({
+  alunoId,
+  title,
+  chave,
+  onClose,
+}) => {
   const navigate = useNavigate();
 
   const conteudoFuncionalidades = {
@@ -19,7 +36,7 @@ const FuncionalidadePopup = ({ alunoId, title, chave, onClose }) => {
   const [quantidadeAulas, setQuantidadeAulas] = useState("");
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
-  const inputStyle = {
+  const inputStyle: React.CSSProperties = {
     height: "40px",
     width: "100%",
     padding: "8px",
@@ -42,7 +59,7 @@ const FuncionalidadePopup = ({ alunoId, title, chave, onClose }) => {
   async function onGerar() {
     console.log("conteudoMateria", conteudoMateria);
 
-    const meta = {};
+    const meta: Meta = {};
 
     if (["LEARN_PLAN", "EVALUATION_MODEL", "MATERIALS"].includes(chave)) {
       meta.content = conteudoMateria;
@@ -52,12 +69,20 @@ const FuncionalidadePopup = ({ alunoId, title, chave, onClose }) => {
       meta.lessons = quantidadeAulas;
     }
 
-    // const solicitacao = await insertRequest(alunoId, {
-    //   title,
-    //   categoria: chave,
-    //   meta,
-    // });
+    const data = await fetch("/api/request/" + alunoId, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        title,
+        categoria: chave,
+        meta,
+      }),
+    });
 
+    const result = await data.json();
+    console.log(result);
     navigate(`/aluno/${alunoId}`);
   }
 
