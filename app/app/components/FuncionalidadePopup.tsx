@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import { insertRequest } from "../api/insertRequest";
 
 const FuncionalidadePopup = ({ alunoId, title, chave, onClose }) => {
   const navigate = useNavigate();
@@ -53,11 +52,11 @@ const FuncionalidadePopup = ({ alunoId, title, chave, onClose }) => {
       meta.lessons = quantidadeAulas;
     }
 
-    const solicitacao = await insertRequest(alunoId, {
-      title,
-      categoria: chave,
-      meta,
-    });
+    // const solicitacao = await insertRequest(alunoId, {
+    //   title,
+    //   categoria: chave,
+    //   meta,
+    // });
 
     navigate(`/aluno/${alunoId}`);
   }

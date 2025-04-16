@@ -34,15 +34,24 @@ export default function Home({ loaderData }: Route.ComponentProps) {
   const userName = session!.user.name || "Usuário";
   const firstName = userName.split(" ")[0];
 
+  async function handleDeleteStudent(studentId: string) {
+    await fetch(`/aluno/${studentId}`, {
+      method: "DELETE",
+    });
+  }
+
   return (
-    <div> 
+    <div>
       <Navbar userName={firstName} />
       <div className="home-page">
-        <h1 className="welcome-message" style={{ marginTop: "30px", fontSize: "24px"  }}>
+        <h1
+          className="welcome-message"
+          style={{ marginTop: "30px", fontSize: "24px" }}
+        >
           Olá, {firstName}.
         </h1>
 
-        <h3 style={{ fontSize: "22px"  }}>Alunos cadastrados</h3>
+        <h3 style={{ fontSize: "22px" }}>Alunos cadastrados</h3>
         <table className="alunos-table">
           <thead>
             <tr>
@@ -58,9 +67,19 @@ export default function Home({ loaderData }: Route.ComponentProps) {
                   <Link to={`/aluno/${aluno.id}`}>{aluno.name}</Link>
                 </td>
                 <td>{new Date(aluno.createdAt).toLocaleDateString("pt-BR")}</td>
-                <td><button className="apagar-button">
-                  <img src="/apagar_aluno.png" alt="Apagar" width="20" height="20" />
-                </button></td>
+                <td>
+                  <button
+                    className="apagar-button"
+                    onClick={() => handleDeleteStudent(aluno.id)}
+                  >
+                    <img
+                      src="/apagar_aluno.png"
+                      alt="Apagar"
+                      width="20"
+                      height="20"
+                    />
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>
@@ -73,7 +92,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
         >
           + Cadastrar novo aluno
         </Button>
-      </div>    
+      </div>
     </div>
   );
 }

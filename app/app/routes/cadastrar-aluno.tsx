@@ -12,7 +12,7 @@ import type { Route } from "./+types/cadastrar-aluno";
 export async function action({ request }: Route.ActionArgs) {
   const formData = await request.formData();
   const student = await addStudent(request, formData);
-  await insertReportOnStudent(request, student.id, formData);
+  await insertReportOnStudent(request, formData, student.id);
 
   return redirect(`/aluno/${student.id}`);
 }
@@ -51,8 +51,8 @@ export default function CadastrarAluno() {
   return (
     <div style={{ backgroundColor: "transparent" }}>
       <Navbar />
-      <div className="cadastrar-aluno-page" >
-        <div className="header" >
+      <div className="cadastrar-aluno-page">
+        <div className="header">
           <VoltarButton />
           <h1>Cadastrar Novo Aluno</h1>
         </div>
@@ -69,7 +69,9 @@ export default function CadastrarAluno() {
             required
           />
           <div className="file-upload-container">
-            <FileUpload onChange={(e: any) => setRelatorio(e.target.files[0])} />
+            <FileUpload
+              onChange={(e: any) => setRelatorio(e.target.files[0])}
+            />
           </div>
           <Button backgroundColor="#022651" strokeColor="#5A5858" type="submit">
             Cadastrar

@@ -9,7 +9,7 @@ import type { Route } from "./+types/cadastrar-relatorio.$alunoId";
 
 export async function action({ request, params }: Route.ActionArgs) {
   const formData = await request.formData();
-  await insertReportOnStudent(request, params.alunoId, formData);
+  await insertReportOnStudent(request, formData, params.alunoId);
 
   return redirect(`/aluno/${params.alunoId}`);
 }

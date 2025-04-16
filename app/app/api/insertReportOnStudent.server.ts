@@ -4,22 +4,22 @@ import { prisma } from "~/lib/prisma";
 
 export async function insertReportOnStudent(
   request: Request,
-  id: string,
-  body: FormData
+  formData: FormData,
+  id: string
 ) {
-  const arquivo = body.get("file");
-
+  const arquivo = formData.get("file") as File;
+  console.log("arquivo", arquivo);
   if (!arquivo || !(arquivo instanceof File)) {
     return { error: "Arquivo não enviado" };
   }
 
   const fileName = arquivo.name;
 
-  const arrayBuffer = await arquivo.arrayBuffer();
-  const clonedBuffer = arrayBuffer.slice(0);
-  const uint8Array = new Uint8Array(clonedBuffer);
+  console.log("fileName", fileName);
 
-  const pdf = await getDocumentProxy(uint8Array);
+  const arrayBuffer = await arquivo.arrayBuffer();
+  const arrayBufferCopy = arrayBuffer.slice(0);
+  const pdf = await getDocumentProxy(arrayBuffer);
 
   const { text: textContent } = await extractText(pdf, { mergePages: true });
 
@@ -44,7 +44,7 @@ export async function insertReportOnStudent(
 
   return await prisma.report.create({
     data: {
-      content: uint8Array,
+      content: new Uint8Array(arrayBufferCopy),
       textContent,
       title: fileName,
       student: {

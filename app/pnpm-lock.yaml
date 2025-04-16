@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@mjackson/form-data-parser':
+        specifier: ^0.7.0
+        version: 0.7.0
       '@prisma/client':
         specifier: 6.6.0
         version: 6.6.0(prisma@6.6.0(typescript@5.8.3))(typescript@5.8.3)
@@ -466,6 +469,15 @@ packages:
   '@mapbox/node-pre-gyp@1.0.11':
     resolution: {integrity: sha512-Yhlar6v9WQgUp/He7BdgzOz8lqMQ8sU+jkCq7Wx8Myc5YFJLbEe7lgui/V7G1qB1DJykHSGwreceSaD60Y0PUQ==}
     hasBin: true
+
+  '@mjackson/form-data-parser@0.7.0':
+    resolution: {integrity: sha512-Y8O5+nsTv4K9Q8ziyuoru8JqYTLsP1PRi7xiFDAx4vrXEvO16NtOO7RmvXIJ2ZB59gP/wV3X1OvqdpoeRgsruA==}
+
+  '@mjackson/headers@0.10.0':
+    resolution: {integrity: sha512-U1Eu1gF979k7ZoIBsJyD+T5l9MjtPONsZfoXfktsQHPJD0s7SokBGx+tLKDLsOY+gzVYAWS0yRFDNY8cgbQzWQ==}
+
+  '@mjackson/multipart-parser@0.8.2':
+    resolution: {integrity: sha512-KltttyypazaJ9kD1GpiOTEop9/YA5aZPwKfpbmuMYoYSyJhQc+0pqaQcZSHUJVdJBvIWgx7TTQSDJdnNqP5dxA==}
 
   '@mjackson/node-fetch-server@0.2.0':
     resolution: {integrity: sha512-EMlH1e30yzmTpGLQjlFmaDAjyOeZhng1/XCd7DExR8PNAnG/G1tyruZxEoUe11ClnwGhGrtsdnyyUx1frSzjng==}
@@ -3335,6 +3347,16 @@ snapshots:
       - encoding
       - supports-color
     optional: true
+
+  '@mjackson/form-data-parser@0.7.0':
+    dependencies:
+      '@mjackson/multipart-parser': 0.8.2
+
+  '@mjackson/headers@0.10.0': {}
+
+  '@mjackson/multipart-parser@0.8.2':
+    dependencies:
+      '@mjackson/headers': 0.10.0
 
   '@mjackson/node-fetch-server@0.2.0': {}
 
