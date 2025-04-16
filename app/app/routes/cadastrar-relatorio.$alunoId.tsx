@@ -39,13 +39,13 @@ export default function CadastrarRelatorio({ params }: Route.ComponentProps) {
   };
 
   return (
-    <div className="cadastrar-relatorio-page">
+    <div className="cadastrar-relatorio-page" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', minHeight: '100vh' }} >
       <Navbar />
-      <div className="header">
+      <div className="header" style={{ marginTop: '50px' }}>
         <VoltarButton />
-        <h1>Cadastrar Novo Relatório</h1>
+        <h1>Cadastrar Relatório</h1>
       </div>
-      <form onSubmit={handleSubmit} className="form-container">
+      <form style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginTop: '30px', gap: '20px' }} onSubmit={handleSubmit} className="form-container">
         <div className="file-upload-container">
           <FileUpload onChange={(e: any) => setRelatorio(e.target.files[0])} />
         </div>

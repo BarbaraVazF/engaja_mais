@@ -84,28 +84,12 @@ export default function AlunoDetalhes({
           justifyContent: "center",
         }}>
         <div className="aluno-detalhes-page">
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              marginTop: "100px",
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "10px",
-              }}
-            >
-              <VoltarButton onClick={handleVoltar} />
-              <h1 style={{ fontSize: "24px", color: "#022651", margin: 0 }}>
-                Detalhamento do aluno
-              </h1>
-            </div>
+          <div className="header">
+            <VoltarButton onClick={handleVoltar} />
+            <h1>Detalhamento do aluno</h1>
           </div>
           <div className="funcionalidades">
-            <h2 style={{ fontSize: "18px", marginBottom: "10px", marginTop: "25px" }}>Funcionalidades</h2>
+            <h2 style={{ fontSize: "18px", marginBottom: "10px", marginTop: "15px" }}>Funcionalidades</h2>
             {actions &&
               actions!.map((func, index) => {
                 const corComOpacidade = func.color + "33";
@@ -146,7 +130,7 @@ export default function AlunoDetalhes({
               })}
           </div>
 
-          <h2 style={{ fontSize: "18px", marginTop: "40px" }}>
+          <h2 style={{ fontSize: "18px", marginTop: "30px", textAlign: "left", width: "100%", marginLeft: 0 }}>
             Histórico de Solicitações
           </h2>
 
@@ -197,7 +181,8 @@ export default function AlunoDetalhes({
             </tbody>
           </table>
 
-          <h2 style={{ fontSize: "18px" }}>Relatórios</h2>
+          <h2 style={{ fontSize: "18px", marginTop: "20px", textAlign: "left", width: "100%", marginLeft: 0 }}>
+            Relatórios</h2>
           <table className="relatorios-table">
             <thead>
               <tr>

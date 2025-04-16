@@ -51,7 +51,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
           Olá, {firstName}.
         </h1>
 
-        <h3 style={{ fontSize: "22px" }}>Alunos cadastrados</h3>
+        <h3 style={{ fontSize: "18px", marginTop: "20px", textAlign: "left", width: "100%", marginLeft: 0 }}>Alunos cadastrados</h3>
         <table className="alunos-table">
           <thead>
             <tr>

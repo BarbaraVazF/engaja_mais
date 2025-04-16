@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from "react";
-import { redirect } from "react-router";
+import { redirect, useNavigate } from "react-router"; // Adicione useNavigate
 import { addStudent } from "../api/addStudent.server";
 import { insertReportOnStudent } from "../api/insertReportOnStudent.server";
 import Button from "../components/Button";
@@ -20,6 +20,7 @@ export async function action({ request }: Route.ActionArgs) {
 export default function CadastrarAluno() {
   const [nome, setNome] = useState("");
   const [relatorio, setRelatorio] = useState(null);
+  const navigate = useNavigate(); // Adicione esta linha
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -41,11 +42,17 @@ export default function CadastrarAluno() {
         body: formData,
       });
 
-      if (!response.ok) {
+      if (response.ok) {
+        navigate(-1); // Volta para a página anterior após o sucesso
+      } else {
         const errorData = await response.json();
         throw new Error(errorData.error || "Erro ao cadastrar aluno");
       }
-    } catch (error) {}
+    } catch (error) {
+      // Trate o erro aqui (ex: mostrar mensagem para o usuário)
+      console.error("Erro ao cadastrar aluno:", error);
+      alert("Ocorreu um erro ao cadastrar o aluno. Por favor, tente novamente.");
+    }
   };
 
   return (
