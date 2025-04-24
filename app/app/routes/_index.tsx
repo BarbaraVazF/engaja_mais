@@ -1,6 +1,7 @@
 // src/components/Home.jsx
 import { useEffect } from "react";
 import { Link, useNavigate } from "react-router";
+import { routerGuard } from "~/api/routerGuard";
 import Button from "~/components/Button";
 import { auth } from "~/lib/auth.server";
 import { listStudent } from "../api/listStudent.server";
@@ -15,6 +16,7 @@ export function meta({}) {
 }
 
 export async function loader({ request }: Route.LoaderArgs) {
+  await routerGuard(request);
   const session = await auth.api.getSession(request);
   const students = await listStudent(request);
   return { students, session };
@@ -31,7 +33,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
     }
   }, [session, navigate]);
 
-  const userName = session!.user.name || "Usuário";
+  const userName = session?.user.name || "Usuário";
   const firstName = userName.split(" ")[0];
 
   async function handleDeleteStudent(studentId: string) {
@@ -51,7 +53,17 @@ export default function Home({ loaderData }: Route.ComponentProps) {
           Olá, {firstName}.
         </h1>
 
-        <h3 style={{ fontSize: "18px", marginTop: "20px", textAlign: "left", width: "100%", marginLeft: 0 }}>Alunos cadastrados</h3>
+        <h3
+          style={{
+            fontSize: "18px",
+            marginTop: "20px",
+            textAlign: "left",
+            width: "100%",
+            marginLeft: 0,
+          }}
+        >
+          Alunos cadastrados
+        </h3>
         <table className="alunos-table">
           <thead>
             <tr>

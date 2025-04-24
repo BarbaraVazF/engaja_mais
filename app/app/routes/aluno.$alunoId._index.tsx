@@ -25,6 +25,12 @@ export async function loader({ params, request }: Route.LoaderArgs) {
   return { aluno, actions };
 }
 
+type TypeChave =
+  | "LEARN_PLAN"
+  | "MATERIALS"
+  | "GAMIFICATION"
+  | "EVALUATION_MODEL";
+
 export default function AlunoDetalhes({
   loaderData,
   params,
@@ -34,7 +40,7 @@ export default function AlunoDetalhes({
   const navigate = useNavigate();
   const [popupOpen, setPopupOpen] = useState(false);
   const [popupTitle, setPopupTitle] = useState("");
-  const [popupChave, setPopupChave] = useState("");
+  const [popupChave, setPopupChave] = useState<TypeChave>("EVALUATION_MODEL");
 
   const removerRelatorio = async (id: string) => {
     await deleteReport(params.alunoId!, id);
@@ -46,7 +52,7 @@ export default function AlunoDetalhes({
 
   const desabilitarBotao = aluno && aluno.report && aluno.report.length > 0;
 
-  const handleFuncionalidadeClick = (title: string, chave: string) => {
+  const handleFuncionalidadeClick = (title: string, chave: TypeChave) => {
     setPopupTitle(title);
     setPopupChave(chave);
     setPopupOpen(true);
@@ -82,14 +88,23 @@ export default function AlunoDetalhes({
         style={{
           display: "flex",
           justifyContent: "center",
-        }}>
+        }}
+      >
         <div className="aluno-detalhes-page">
           <div className="header">
             <VoltarButton onClick={handleVoltar} />
             <h1>Detalhamento do aluno</h1>
           </div>
           <div className="funcionalidades">
-            <h2 style={{ fontSize: "18px", marginBottom: "10px", marginTop: "15px" }}>Funcionalidades</h2>
+            <h2
+              style={{
+                fontSize: "18px",
+                marginBottom: "10px",
+                marginTop: "15px",
+              }}
+            >
+              Funcionalidades
+            </h2>
             {actions &&
               actions!.map((func, index) => {
                 const corComOpacidade = func.color + "33";
@@ -130,7 +145,15 @@ export default function AlunoDetalhes({
               })}
           </div>
 
-          <h2 style={{ fontSize: "18px", marginTop: "30px", textAlign: "left", width: "100%", marginLeft: 0 }}>
+          <h2
+            style={{
+              fontSize: "18px",
+              marginTop: "30px",
+              textAlign: "left",
+              width: "100%",
+              marginLeft: 0,
+            }}
+          >
             Histórico de Solicitações
           </h2>
 
@@ -147,12 +170,16 @@ export default function AlunoDetalhes({
                 aluno.requests.map((solicitacao) => (
                   <tr key={solicitacao.id}>
                     <td>
-                      <Link to={`/aluno/${aluno.id}/solicitacao/${solicitacao.id}`}>
+                      <Link
+                        to={`/aluno/${aluno.id}/solicitacao/${solicitacao.id}`}
+                      >
                         {solicitacao.title}
                       </Link>
                     </td>
                     <td>
-                      {new Date(solicitacao.createdAt).toLocaleDateString("pt-BR")}
+                      {new Date(solicitacao.createdAt).toLocaleDateString(
+                        "pt-BR"
+                      )}
                     </td>
                     <td>
                       <button
@@ -181,8 +208,17 @@ export default function AlunoDetalhes({
             </tbody>
           </table>
 
-          <h2 style={{ fontSize: "18px", marginTop: "20px", textAlign: "left", width: "100%", marginLeft: 0 }}>
-            Relatórios</h2>
+          <h2
+            style={{
+              fontSize: "18px",
+              marginTop: "20px",
+              textAlign: "left",
+              width: "100%",
+              marginLeft: 0,
+            }}
+          >
+            Relatórios
+          </h2>
           <table className="relatorios-table">
             <thead>
               <tr>
@@ -196,7 +232,9 @@ export default function AlunoDetalhes({
                 aluno.report.map((rel) => (
                   <tr key={rel.id}>
                     <td>{rel.title}</td>
-                    <td>{new Date(rel.createdAt).toLocaleDateString("pt-BR")}</td>
+                    <td>
+                      {new Date(rel.createdAt).toLocaleDateString("pt-BR")}
+                    </td>
                     <td>
                       <button
                         onClick={() => removerRelatorio(rel.id)}
@@ -266,21 +304,21 @@ export default function AlunoDetalhes({
                   cursor: desabilitarBotao ? "not-allowed" : "pointer",
                   opacity: desabilitarBotao ? 1 : 1,
                 }}
-                >
-                  Inserir Relatório
-                </button>
-              </div>
-            )}
-
-            {aluno.report && aluno.report.length > 0 && (
-              <div
-                style={{
-                  textAlign: "center",
-                  color: "gray",
-                  fontSize: "16px",
-                  marginBottom: "6px",
-                }}
               >
+                Inserir Relatório
+              </button>
+            </div>
+          )}
+
+          {aluno.report && aluno.report.length > 0 && (
+            <div
+              style={{
+                textAlign: "center",
+                color: "gray",
+                fontSize: "16px",
+                marginBottom: "6px",
+              }}
+            >
               Para inserir um novo relatório, é necessário excluir o atual.
             </div>
           )}

@@ -20,5 +20,9 @@ export async function getActions(id: string) {
       color: "#0251B1",
       key: "GAMIFICATION",
     },
-  ];
+  ] as {
+    title: string;
+    color: string;
+    key: "LEARN_PLAN" | "MATERIALS" | "GAMIFICATION" | "EVALUATION_MODEL";
+  }[];
 }
