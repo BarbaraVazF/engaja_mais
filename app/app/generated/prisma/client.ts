@@ -82,7 +82,7 @@ const config: runtime.GetPrismaClientConfig = {
       "value": "prisma-client"
     },
     "output": {
-      "value": "C:\\Users\\baferreira\\Documents\\Documentos pessoais\\faculdade\\projeto_tcc\\engaja_mais_front\\app\\app\\generated\\prisma",
+      "value": "/Users/alex/Desktop/engaja_mais_front/app/app/generated/prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -91,12 +91,16 @@ const config: runtime.GetPrismaClientConfig = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "windows",
+        "value": "darwin-arm64",
         "native": true
+      },
+      {
+        "fromEnvVar": null,
+        "value": "rhel-openssl-3.0.x"
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "C:\\Users\\baferreira\\Documents\\Documentos pessoais\\faculdade\\projeto_tcc\\engaja_mais_front\\app\\prisma\\schema.prisma",
+    "sourceFilePath": "/Users/alex/Desktop/engaja_mais_front/app/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativePath": "../../../prisma",
@@ -115,8 +119,8 @@ const config: runtime.GetPrismaClientConfig = {
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client\"\n  output   = \"../app/generated/prisma\"\n}\n\ndatasource db {\n  provider = \"mongodb\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id               String    @id @map(\"_id\")\n  name             String\n  email            String\n  emailVerified    Boolean\n  image            String?\n  createdAt        DateTime\n  updatedAt        DateTime\n  sessions         Session[]\n  accounts         Account[]\n  students         Student[]\n  verificationCode String?\n\n  @@unique([email])\n  @@map(\"user\")\n}\n\nmodel Session {\n  id        String   @id @map(\"_id\")\n  expiresAt DateTime\n  token     String\n  createdAt DateTime\n  updatedAt DateTime\n  ipAddress String?\n  userAgent String?\n  userId    String\n  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)\n\n  @@unique([token])\n  @@map(\"session\")\n}\n\nmodel Account {\n  id                    String    @id @map(\"_id\")\n  accountId             String\n  providerId            String\n  userId                String\n  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)\n  accessToken           String?\n  refreshToken          String?\n  idToken               String?\n  accessTokenExpiresAt  DateTime?\n  refreshTokenExpiresAt DateTime?\n  scope                 String?\n  password              String?\n  createdAt             DateTime\n  updatedAt             DateTime\n\n  @@map(\"account\")\n}\n\nmodel Verification {\n  id         String    @id @map(\"_id\")\n  identifier String\n  value      String\n  expiresAt  DateTime\n  createdAt  DateTime?\n  updatedAt  DateTime?\n\n  @@map(\"verification\")\n}\n\nmodel Student {\n  id             String     @id @default(auto()) @map(\"_id\") @db.ObjectId\n  name           String\n  registeredBy   User       @relation(fields: [registeredById], references: [id])\n  registeredById String\n  createdAt      DateTime   @default(now())\n  updatedAt      DateTime   @updatedAt\n  report         Report[]\n  requests       Requests[]\n\n  @@map(\"student\")\n}\n\nmodel Report {\n  id          String   @id @default(auto()) @map(\"_id\") @db.ObjectId\n  student     Student  @relation(fields: [studentId], references: [id])\n  studentId   String   @db.ObjectId\n  content     Bytes\n  textContent String\n  title       String?\n  createdAt   DateTime @default(now())\n  updatedAt   DateTime @updatedAt\n\n  @@map(\"report\")\n}\n\nenum Status {\n  PENDING\n  DOING\n  SUCCESS\n  ERROR\n}\n\nmodel Requests {\n  id        String   @id @default(auto()) @map(\"_id\") @db.ObjectId\n  student   Student  @relation(fields: [studentId], references: [id])\n  studentId String   @db.ObjectId\n  title     String\n  meta      Json\n  type      String\n  content   String?\n  status    Status   @default(PENDING)\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  @@map(\"requests\")\n}\n",
-  "inlineSchemaHash": "556f4ce18947a6002d85ec8d245a515f768dfbf0c45ada553564e2c5e15418a8",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider      = \"prisma-client\"\n  output        = \"../app/generated/prisma\"\n  binaryTargets = [\"native\", \"rhel-openssl-3.0.x\"]\n}\n\ndatasource db {\n  provider = \"mongodb\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id               String    @id @map(\"_id\")\n  name             String\n  email            String\n  emailVerified    Boolean\n  image            String?\n  createdAt        DateTime\n  updatedAt        DateTime\n  sessions         Session[]\n  accounts         Account[]\n  students         Student[]\n  verificationCode String?\n\n  @@unique([email])\n  @@map(\"user\")\n}\n\nmodel Session {\n  id        String   @id @map(\"_id\")\n  expiresAt DateTime\n  token     String\n  createdAt DateTime\n  updatedAt DateTime\n  ipAddress String?\n  userAgent String?\n  userId    String\n  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)\n\n  @@unique([token])\n  @@map(\"session\")\n}\n\nmodel Account {\n  id                    String    @id @map(\"_id\")\n  accountId             String\n  providerId            String\n  userId                String\n  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)\n  accessToken           String?\n  refreshToken          String?\n  idToken               String?\n  accessTokenExpiresAt  DateTime?\n  refreshTokenExpiresAt DateTime?\n  scope                 String?\n  password              String?\n  createdAt             DateTime\n  updatedAt             DateTime\n\n  @@map(\"account\")\n}\n\nmodel Verification {\n  id         String    @id @map(\"_id\")\n  identifier String\n  value      String\n  expiresAt  DateTime\n  createdAt  DateTime?\n  updatedAt  DateTime?\n\n  @@map(\"verification\")\n}\n\nmodel Student {\n  id             String     @id @default(auto()) @map(\"_id\") @db.ObjectId\n  name           String\n  registeredBy   User       @relation(fields: [registeredById], references: [id])\n  registeredById String\n  createdAt      DateTime   @default(now())\n  updatedAt      DateTime   @updatedAt\n  report         Report[]\n  requests       Requests[]\n\n  @@map(\"student\")\n}\n\nmodel Report {\n  id          String   @id @default(auto()) @map(\"_id\") @db.ObjectId\n  student     Student  @relation(fields: [studentId], references: [id])\n  studentId   String   @db.ObjectId\n  content     Bytes\n  textContent String\n  title       String?\n  createdAt   DateTime @default(now())\n  updatedAt   DateTime @updatedAt\n\n  @@map(\"report\")\n}\n\nenum Status {\n  PENDING\n  DOING\n  SUCCESS\n  ERROR\n}\n\nmodel Requests {\n  id        String   @id @default(auto()) @map(\"_id\") @db.ObjectId\n  student   Student  @relation(fields: [studentId], references: [id])\n  studentId String   @db.ObjectId\n  title     String\n  meta      Json\n  type      String\n  content   String?\n  status    Status   @default(PENDING)\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  @@map(\"requests\")\n}\n",
+  "inlineSchemaHash": "09183536da847e4dd4238a9852a092fb25633983023bb5f3953f605e457f27df",
   "copyEngine": true,
   "runtimeDataModel": {
     "models": {},
@@ -134,8 +138,12 @@ config.compilerWasm = undefined
 
 
 // file annotations for bundling tools to include these files
-path.join(__dirname, "query_engine-windows.dll.node")
-path.join(process.cwd(), "app/generated/prisma/query_engine-windows.dll.node")
+path.join(__dirname, "libquery_engine-darwin-arm64.dylib.node")
+path.join(process.cwd(), "app/generated/prisma/libquery_engine-darwin-arm64.dylib.node")
+
+// file annotations for bundling tools to include these files
+path.join(__dirname, "libquery_engine-rhel-openssl-3.0.x.so.node")
+path.join(process.cwd(), "app/generated/prisma/libquery_engine-rhel-openssl-3.0.x.so.node")
 // file annotations for bundling tools to include these files
 path.join(__dirname, "schema.prisma")
 path.join(process.cwd(), "app/generated/prisma/schema.prisma")
