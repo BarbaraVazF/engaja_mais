@@ -190,11 +190,20 @@ export default function Solicitacao({
             </div>
           </div>
         ) : (
-          request && request.content && (
-            <div style={{ fontSize: "12px" }}>
-              <Markdown>{request.content}</Markdown>
-            </div>
-          )
+          request && request.content && <Markdown
+          components={{
+            p: ({ node, ...props }) => <p style={{ fontSize: "12px" }} {...props} />,
+            h1: ({ node, ...props }) => <h1 style={{ fontSize: "12px" }} {...props} />,
+            h2: ({ node, ...props }) => <h2 style={{ fontSize: "12px" }} {...props} />,
+            h3: ({ node, ...props }) => <h3 style={{ fontSize: "12px" }} {...props} />,
+            li: ({ node, ...props }) => <li style={{ fontSize: "12px" }} {...props} />,
+            code: ({ node, ...props }) => <code style={{ fontSize: "12px" }} {...props} />,
+            pre: ({ node, ...props }) => <pre style={{ fontSize: "12px" }} {...props} />,
+          }}
+        >
+          {request.content}
+        </Markdown>
+        
         )}
       </div>
     </div>
