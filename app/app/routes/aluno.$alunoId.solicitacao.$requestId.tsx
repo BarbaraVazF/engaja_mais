@@ -192,13 +192,20 @@ export default function Solicitacao({
         ) : (
           request && request.content && <Markdown
           components={{
-            p: ({ node, ...props }) => <p style={{ fontSize: "12px" }} {...props} />,
-            h1: ({ node, ...props }) => <h1 style={{ fontSize: "12px" }} {...props} />,
-            h2: ({ node, ...props }) => <h2 style={{ fontSize: "12px" }} {...props} />,
-            h3: ({ node, ...props }) => <h3 style={{ fontSize: "12px" }} {...props} />,
-            li: ({ node, ...props }) => <li style={{ fontSize: "12px" }} {...props} />,
-            code: ({ node, ...props }) => <code style={{ fontSize: "12px" }} {...props} />,
-            pre: ({ node, ...props }) => <pre style={{ fontSize: "12px" }} {...props} />,
+            // Renderiza tudo como <span> com fontSize 12px
+            p: ({ node, ...props }) => <span style={{ fontSize: "12px" }} {...props} />,
+            h1: ({ node, ...props }) => <span style={{ fontSize: "12px" }} {...props} />,
+            h2: ({ node, ...props }) => <span style={{ fontSize: "12px" }} {...props} />,
+            h3: ({ node, ...props }) => <span style={{ fontSize: "12px" }} {...props} />,
+            h4: ({ node, ...props }) => <span style={{ fontSize: "12px" }} {...props} />,
+            h5: ({ node, ...props }) => <span style={{ fontSize: "12px" }} {...props} />,
+            h6: ({ node, ...props }) => <span style={{ fontSize: "12px" }} {...props} />,
+            li: ({ node, ...props }) => <span style={{ fontSize: "12px" }} {...props} />,
+            ul: ({ node, ...props }) => <span style={{ fontSize: "12px" }} {...props} />,
+            ol: ({ node, ...props }) => <span style={{ fontSize: "12px" }} {...props} />,
+            code: ({ node, ...props }) => <span style={{ fontSize: "12px", fontFamily: "monospace" }} {...props} />,
+            pre: ({ node, ...props }) => <span style={{ fontSize: "12px" }} {...props} />,
+            blockquote: ({ node, ...props }) => <span style={{ fontSize: "12px" }} {...props} />,
           }}
         >
           {request.content}
