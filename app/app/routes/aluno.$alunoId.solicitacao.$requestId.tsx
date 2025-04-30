@@ -190,27 +190,7 @@ export default function Solicitacao({
             </div>
           </div>
         ) : (
-          request && request.content && <Markdown
-          components={{
-            // Renderiza tudo como <span> com fontSize 12px
-            p: ({ node, ...props }) => <span style={{ fontSize: "12px" }} {...props} />,
-            h1: ({ node, ...props }) => <span style={{ fontSize: "12px" }} {...props} />,
-            h2: ({ node, ...props }) => <span style={{ fontSize: "12px" }} {...props} />,
-            h3: ({ node, ...props }) => <span style={{ fontSize: "12px" }} {...props} />,
-            h4: ({ node, ...props }) => <span style={{ fontSize: "12px" }} {...props} />,
-            h5: ({ node, ...props }) => <span style={{ fontSize: "12px" }} {...props} />,
-            h6: ({ node, ...props }) => <span style={{ fontSize: "12px" }} {...props} />,
-            li: ({ node, ...props }) => <span style={{ fontSize: "12px" }} {...props} />,
-            ul: ({ node, ...props }) => <span style={{ fontSize: "12px" }} {...props} />,
-            ol: ({ node, ...props }) => <span style={{ fontSize: "12px" }} {...props} />,
-            code: ({ node, ...props }) => <span style={{ fontSize: "12px", fontFamily: "monospace" }} {...props} />,
-            pre: ({ node, ...props }) => <span style={{ fontSize: "12px" }} {...props} />,
-            blockquote: ({ node, ...props }) => <span style={{ fontSize: "12px" }} {...props} />,
-          }}
-        >
-          {request.content}
-        </Markdown>
-        
+          request && request.content && <Markdown>{request.content}</Markdown>
         )}
       </div>
     </div>
