@@ -10,7 +10,8 @@ const FileUpload = ({ onChange }) => {
         accept=".pdf"
         onChange={onChange}
       />
-      <p>Inserir relatório com informações do novo aluno, como: nome, pontos fortes, dificuldades, padrão de aprendizagem e áreas prioritárias de desenvolvimento.</p>
+      <p>      Inserir um relatório com as seguintes informações do aluno: idade, série escolar, nível de suporte, pontos fortes e principais desafios (acadêmicos, sociais e/ou sensoriais), interesses, objetivos de aprendizagem e desenvolvimento, padrão de aprendizagem e, se pertinente, outras informações relevantes sobre seu contexto.
+      </p>
     </div>
   );
 };
