@@ -93,7 +93,7 @@ export default function AlunoDetalhes({
         <div className="aluno-detalhes-page">
           <div className="header">
             <VoltarButton onClick={handleVoltar} />
-            <h1>Detalhamento do aluno {aluno.name}</h1>
+            <h1>Detalhamento de {aluno.name}</h1>
           </div>
           <div className="funcionalidades">
             <h2
