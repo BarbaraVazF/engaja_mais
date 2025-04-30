@@ -190,7 +190,11 @@ export default function Solicitacao({
             </div>
           </div>
         ) : (
-          request && request.content && <Markdown>{request.content}</Markdown>
+          request && request.content && (
+            <div style={{ fontSize: "12px" }}>
+              <Markdown>{request.content}</Markdown>
+            </div>
+          )
         )}
       </div>
     </div>
