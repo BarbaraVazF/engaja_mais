@@ -1,6 +1,6 @@
 // src/components/Home.jsx
 import { useEffect } from "react";
-import { Link, useNavigate } from "react-router";
+import { Link, useFetcher, useNavigate, useRevalidator } from "react-router";
 import { routerGuard } from "~/api/routerGuard";
 import Button from "~/components/Button";
 import { auth } from "~/lib/auth.server";
@@ -27,6 +27,9 @@ export default function Home({ loaderData }: Route.ComponentProps) {
 
   const navigate = useNavigate();
 
+  const revalidator = useRevalidator();
+  const fetcher = useFetcher();
+
   useEffect(() => {
     if (!session?.user) {
       navigate("/login");
@@ -37,9 +40,12 @@ export default function Home({ loaderData }: Route.ComponentProps) {
   const firstName = userName.split(" ")[0];
 
   async function handleDeleteStudent(studentId: string) {
-    await fetch(`/aluno/${studentId}`, {
-      method: "DELETE",
+    await fetcher.submit(null, {
+      method: "delete",
+      action: `/aluno/${studentId}`,
     });
+
+    revalidator.revalidate();
   }
 
   return (

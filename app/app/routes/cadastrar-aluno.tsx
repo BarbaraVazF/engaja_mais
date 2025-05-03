@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from "react";
-import { redirect, useNavigate } from "react-router"; // Adicione useNavigate
+import { redirect, useFetcher, useNavigate } from "react-router"; // Adicione useNavigate
 import { addStudent } from "../api/addStudent.server";
 import { insertReportOnStudent } from "../api/insertReportOnStudent.server";
 import Button from "../components/Button";
@@ -22,6 +22,8 @@ export default function CadastrarAluno() {
   const [relatorio, setRelatorio] = useState(null);
   const navigate = useNavigate(); // Adicione esta linha
 
+  const fetcher = useFetcher();
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
@@ -37,21 +39,16 @@ export default function CadastrarAluno() {
         formData.append("file", relatorio);
       }
 
-      const response = await fetch("/cadastrar-aluno", {
-        method: "POST",
-        body: formData,
+      await fetcher.submit(formData, {
+        method: "post",
+        action: "/cadastrar-aluno",
       });
-
-      if (response.ok) {
-        navigate(-1); // Volta para a página anterior após o sucesso
-      } else {
-        const errorData = await response.json();
-        throw new Error(errorData.error || "Erro ao cadastrar aluno");
-      }
     } catch (error) {
       // Trate o erro aqui (ex: mostrar mensagem para o usuário)
       console.error("Erro ao cadastrar aluno:", error);
-      alert("Ocorreu um erro ao cadastrar o aluno. Por favor, tente novamente.");
+      alert(
+        "Ocorreu um erro ao cadastrar o aluno. Por favor, tente novamente."
+      );
     }
   };
 

@@ -1,7 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router";
-import { deleteReport } from "../api/deleteReport";
-import { deleteRequest } from "../api/deleteRequest";
+import { Link, useFetcher, useNavigate, useRevalidator } from "react-router";
 import { getActions } from "../api/getActions.server";
 import { getStudent } from "../api/getStudent.server";
 import FuncionalidadePopup from "../components/FuncionalidadePopup";
@@ -38,16 +36,28 @@ export default function AlunoDetalhes({
   const { actions, aluno } = loaderData;
 
   const navigate = useNavigate();
+
+  const fetcher = useFetcher();
+  const revalidator = useRevalidator();
+
   const [popupOpen, setPopupOpen] = useState(false);
   const [popupTitle, setPopupTitle] = useState("");
   const [popupChave, setPopupChave] = useState<TypeChave>("EVALUATION_MODEL");
 
   const removerRelatorio = async (id: string) => {
-    await deleteReport(params.alunoId!, id);
+    await fetcher.submit(null, {
+      method: "delete",
+      action: `/api/reports/${id}`,
+    });
+    revalidator.revalidate();
   };
 
   const removerSolicitacao = async (id: string) => {
-    await deleteRequest(params.alunoId, id);
+    await fetcher.submit(null, {
+      method: "delete",
+      action: `/aluno/${params.alunoId}/solicitacao/${id}`,
+    });
+    revalidator.revalidate();
   };
 
   const desabilitarBotao = aluno && aluno.report && aluno.report.length > 0;

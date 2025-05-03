@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Markdown from "react-markdown";
+import { deleteRequest } from "~/api/deleteRequest.server";
 import { getRequest } from "../api/getRequest.server";
 import Navbar from "../components/Navbar";
 import VoltarButton from "../components/VoltarButton";
@@ -8,6 +9,13 @@ import type { Route } from "./+types/aluno.$alunoId.solicitacao.$requestId";
 export async function loader({ request, params }: Route.LoaderArgs) {
   const data = await getRequest(params.requestId, request);
   return { request: data };
+}
+
+export async function action({ request, params }: Route.ActionArgs) {
+  if (request.method === "DELETE") {
+    await deleteRequest(params.requestId);
+    return { success: true };
+  }
 }
 
 export default function Solicitacao({
