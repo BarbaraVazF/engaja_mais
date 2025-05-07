@@ -1,7 +1,7 @@
 export async function getActions(id: string) {
   return [
     {
-      title: "Plano de ensino personalizado",
+      title: "Plano de ensino individualizado",
       color: "#FFDB00",
       key: "LEARN_PLAN",
     },

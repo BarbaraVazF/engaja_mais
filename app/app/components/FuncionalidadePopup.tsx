@@ -23,13 +23,13 @@ const FuncionalidadePopup: React.FC<FuncionalidadePopupProps> = ({
 
   const conteudoFuncionalidades = {
     LEARN_PLAN:
-      "Elaboração de um plano de ensino personalizado, com estratégias para a apresentação do conteúdo selecionado e atividades práticas em sala de aula, ajustadas à quantidade de aulas definidas.",
+      "Elaboração de um plano de ensino individualizado, com estratégias para a apresentação do conteúdo selecionado e atividades práticas em sala de aula, ajustadas à quantidade de aulas definidas.",
     MATERIALS:
       "Elaboração de um material de estudo sobre o conteúdo escolhido, incluindo resumos e atividades para reforço em casa, com o objetivo de promover a autonomia no aprendizado.",
     GAMIFICATION:
       "Elaboração de uma estratégia de gamificação personalizada para o aluno, visando estimular o engajamento e a motivação no processo de aprendizagem.",
     EVALUATION_MODEL:
-      "Elaboração de um modelo de avaliação personalizado para o conteúdo escolhido, garantindo um processo equitativo e alinhado ao perfil e às necessidades de cada aluno.",
+      "Elaboração de um modelo de avaliação individualizado para o conteúdo escolhido, garantindo um processo equitativo e alinhado ao perfil e às necessidades de cada aluno.",
   };
 
   const [conteudoMateria, setConteudoMateria] = useState("");

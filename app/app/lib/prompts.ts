@@ -15,7 +15,7 @@ Estrutura obrigatória do modelo:
 - Contextualização pedagógica:
   - Explicar por que e como a gamificação será aplicada nesse caso específico.
   - Mostrar como o uso de desafios, recompensas e feedback positivo pode beneficiar o aluno.
-  - Descrever como o modelo será personalizado com base nas preferências, dificuldades e pontos fortes do aluno (ex: preferência por tarefas visuais, sensoriais, rotina estruturada, repetição positiva, etc.).
+  - Descrever como o modelo será individualizado com base nas preferências, dificuldades e pontos fortes do aluno (ex: preferência por tarefas visuais, sensoriais, rotina estruturada, repetição positiva, etc.).
 - Estratégia completa:
   - Atividades Gamificadas (estruturação de desafios, quizzes, jogos educativos e tarefas progressivas, com objetivos claros e alcançados).
   - Níveis e Avanços (definição de critérios de pontuação, forma de progressão entre níveis e monitoramento do desempenho do aluno ao longo do processo).
