@@ -72,11 +72,6 @@ export default function CadastrarAluno() {
             onChange={(e) => setNome(e.target.value)}
             required
           />
-          <div className="file-upload-container">
-            <FileUpload
-              onChange={(e: any) => setRelatorio(e.target.files[0])}
-            />
-          </div>
           <Button backgroundColor="#022651" strokeColor="#5A5858" type="submit">
             Cadastrar
           </Button>
