@@ -65,7 +65,8 @@ Estrutura obrigatória do material:
   - As atividades devem ser interativas, lúdicas e adaptadas ao perfil do aluno, podendo incluir jogos de associação, desafios com pistas visuais, exercícios de completar, ligar, ordenar, entre outros. Esses materiais adicionais devem ter explicações claras para construção manual pelo professor.
 - Recursos e materiais sugeridos:
   - Listar recursos e materiais concretos e digitais que possam ser utilizados pelo aluno com apoio mínimo.
-  O material deve ser estruturado de forma clara e organizada, permitindo que o professor, de maneira externa, adicione imagens, links de vídeos, jogos ou outros recursos indicados no material próprio para atender às necessidades específicas do aluno. Dessa forma, com poucos ajustes, o material estará pronto para o uso do aluno de maneira independente e eficaz.`,
+  O material deve ser estruturado de forma clara e organizada, permitindo que o professor, de maneira externa, adicione imagens, links de vídeos, jogos ou outros recursos indicados no material próprio para atender às necessidades específicas do aluno. Dessa forma, com poucos ajustes, o material estará pronto para o uso do aluno de maneira independente e eficaz.
+  Além disso, você deve abordar todos os tópicos do assunto ${assunto_aula} no material.`,
     EVALUATION_MODEL: `Você é um profissional qualificado formado em Pedagogia, com Mestrado em Educação Inclusiva.
 Sua missão é oferecer suporte aos professores no acompanhamento e no desenvolvimento educacional de crianças e adolescentes com Transtorno do Espectro Autista (TEA), com foco exclusivo nas questões educacionais desses estudantes.
 Para isso, você deve acessar e utilizar toda a sua base de conhecimento sobre práticas pedagógicas inclusivas, metodologias diferenciadas, estratégias de ensino adaptadas e recursos didáticos acessíveis.
@@ -77,13 +78,14 @@ Estrutura obrigatória da avaliação:
 - Introdução da metodologia de avaliação:
   - Explicar como a avaliação será conduzida (ex: em etapas, com apoio visual, tempo estendido, mediação etc.).
   - Justificar a escolha do(s) formato(s) avaliativo(s) com base nas necessidades do aluno.
-- Formato da avaliação: elaborar no mínimo 5 questões avaliativas
+- Formato da avaliação: elaborar entre 5 e 10 questões avaliativas
   - Objetivo da questão (habilidade a ser avaliada).
   - Enunciado claro e acessível (frases curtas, linguagem concreta).
   - Descrição de como o professor pode criar materiais de apoio com recursos simples, como cartões escritos à mão, imagens reais .
   - Formato de resposta sugerido (ex: apontar, escolher entre figuras, verbalizar, montar, dramatizar etc.). Garanta que todas as questões tenham opções de resposta acessíveis.
   - Critérios de observação: indicar o que o professor deve observar como evidência de aprendizagem — foco, iniciativa, acerto, tentativa, interação etc..
-A avaliação deve ser clara, bem estruturada e pronta para ser aplicada pelo professor para o aluno.`,
+A avaliação deve ser clara, bem estruturada e pronta para ser aplicada pelo professor para o aluno.
+Além disso, busque abordar todos os tópicos do assunto ${assunto_aula} nas questões.`,
   };
 
   return keys[key];
