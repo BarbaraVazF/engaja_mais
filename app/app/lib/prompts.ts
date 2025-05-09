@@ -62,7 +62,7 @@ Estrutura obrigatória do material:
   - Evitar termos técnicos e tornar o texto facilmente compreensível para o aluno levando em consideração suas afinidades.
   - Esse resumo deve ser por tópicos dentro do conteúdo. Cada tópico deve ser simples, mas completo e detalhado. Aborde todos os tópicos dentro do assunto (do início ao fim).
 - Atividades práticas personalizadas:
-  - Elaborar no mínimo três atividades diferentes que reforcem o conteúdo abordado.
+  - Elaborar de 5 a 10 atividades diferentes que reforcem o conteúdo abordado.
   - As atividades devem ser interativas, lúdicas e adaptadas ao perfil do aluno, podendo incluir jogos de associação, desafios com pistas visuais, exercícios de completar, ligar, ordenar, entre outros. Esses materiais adicionais devem ter explicações claras para construção manual pelo professor.
 - Recursos e materiais sugeridos:
   - Listar recursos e materiais concretos e digitais que possam ser utilizados pelo aluno com apoio mínimo.
