@@ -131,7 +131,17 @@ const FuncionalidadePopup: React.FC<FuncionalidadePopupProps> = ({
           />
         )}
 
-        
+        {/* Mostrar o conteúdo escrito, se aplicável */}
+        {(conteudoMateria || quantidadeAulas) && chave === "LEARN_PLAN" && (
+          <div style={{ marginTop: "20px" }}>
+            <p>
+              <strong>Matéria:</strong> {conteudoMateria}
+            </p>
+            <p>
+              <strong>Quantidade de aulas:</strong> {quantidadeAulas}
+            </p>
+          </div>
+        )}
 
         {conteudoMateria &&
           (chave === "MATERIALS" || chave === "EVALUATION_MODEL") && (
