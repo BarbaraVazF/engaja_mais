@@ -131,17 +131,6 @@ const FuncionalidadePopup: React.FC<FuncionalidadePopupProps> = ({
           />
         )}
 
-        
-
-        {conteudoMateria &&
-          (chave === "MATERIALS" || chave === "EVALUATION_MODEL") && (
-            <div style={{ marginTop: "20px" }}>
-              <p>
-                <strong>Matéria:</strong> {conteudoMateria}
-              </p>
-            </div>
-          )}
-
         <div className="popup-buttons">
           <button onClick={onClose} className="custom-button">
             Fechar
