@@ -20,6 +20,9 @@ export async function getStudent(id: string, request: Request) {
           createdAt: "desc",
         },
         take: 1,
+        omit: {
+          content: true,
+        },
       },
     },
   });

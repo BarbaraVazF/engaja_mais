@@ -37,7 +37,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
   }, [session, navigate]);
 
   const userName = session?.user.name || "Usuário";
-  const firstName = userName.split(" ")[0];
+  const firstName = userName?.split(" ")[0];
 
   async function handleDeleteStudent(studentId: string) {
     await fetcher.submit(null, {
@@ -50,7 +50,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
 
   return (
     <div>
-      <Navbar userName={firstName} />
+      <Navbar />
       <div className="home-page">
         <h1
           className="welcome-message"

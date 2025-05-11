@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router";
+import { useFetcher, useRevalidator } from "react-router";
 
 interface FuncionalidadePopupProps {
   alunoId: string; // Replace 'string' with the appropriate type if needed
@@ -19,7 +19,9 @@ const FuncionalidadePopup: React.FC<FuncionalidadePopupProps> = ({
   chave,
   onClose,
 }) => {
-  const navigate = useNavigate();
+  const revalidator = useRevalidator();
+
+  const fetcher = useFetcher();
 
   const conteudoFuncionalidades = {
     LEARN_PLAN:
@@ -69,21 +71,21 @@ const FuncionalidadePopup: React.FC<FuncionalidadePopupProps> = ({
       meta.lessons = quantidadeAulas;
     }
 
-    const data = await fetch("/api/request/" + alunoId, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
+    await fetcher.submit(
+      {
         title,
         categoria: chave,
-        meta,
-      }),
-    });
+        meta: JSON.stringify(meta),
+      },
+      {
+        method: "post",
+        action: `/api/request/${alunoId}`,
+        encType: "application/json",
+      }
+    );
 
-    const result = await data.json();
-    console.log(result);
-    navigate(`/aluno/${alunoId}`);
+    revalidator.revalidate();
+    onClose();
   }
 
   return (

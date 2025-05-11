@@ -58,7 +58,7 @@ export default function Solicitacao({
     doc.setFont("helvetica"); // Fonte
     doc.setFontSize(fontSize);
 
-    const lines = doc.splitTextToSize(text, maxWidth);
+    const lines = doc.splitTextToSize(request.content!, maxWidth);
 
     let y = marginTop; // Posição Y inicial
     lines.forEach((line: any) => {
@@ -69,6 +69,9 @@ export default function Solicitacao({
       doc.text(line, marginLeft, y);
       y += lineHeight; // Avança para a próxima linha
     });
+
+    // Salva o PDF
+    doc.save(`${request.title}.pdf`);
   };
 
   return (

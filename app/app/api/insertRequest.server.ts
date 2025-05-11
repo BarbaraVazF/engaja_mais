@@ -49,6 +49,32 @@ export async function insertRequest(
     },
   });
 
+  return data;
+}
+
+export async function handleRequest(
+  request: Request,
+  data: any,
+  studentId: string
+) {
+  const session = await auth.api.getSession(request);
+  const id = session!.user.id;
+  const student = await prisma.student.findUnique({
+    where: {
+      id: studentId,
+      registeredBy: {
+        id,
+      },
+    },
+    include: {
+      report: true,
+    },
+  });
+
+  if (!student) {
+    throw new Error("Student not found");
+  }
+
   const prompt = getPropmt(
     data.type as any,
     student.report[0].textContent,
@@ -77,9 +103,4 @@ export async function insertRequest(
       status: "SUCCESS",
     },
   });
-
-  return {
-    status: "success",
-    data,
-  };
 }

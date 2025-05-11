@@ -19,7 +19,6 @@ export async function loader({ params, request }: Route.LoaderArgs) {
   }
 
   const actions = await getActions(alunoId);
-
   return { aluno, actions };
 }
 
@@ -69,6 +68,7 @@ export default function AlunoDetalhes({
   };
 
   const handleClosePopup = () => {
+    revalidator.revalidate();
     setPopupOpen(false);
   };
 

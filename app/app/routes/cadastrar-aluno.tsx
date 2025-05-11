@@ -1,9 +1,7 @@
 import { useState, type FormEvent } from "react";
 import { redirect, useFetcher, useNavigate } from "react-router"; // Adicione useNavigate
 import { addStudent } from "../api/addStudent.server";
-import { insertReportOnStudent } from "../api/insertReportOnStudent.server";
 import Button from "../components/Button";
-import FileUpload from "../components/FileUpload";
 import InputField from "../components/InputField";
 import Navbar from "../components/Navbar";
 import VoltarButton from "../components/VoltarButton";
@@ -11,10 +9,10 @@ import type { Route } from "./+types/cadastrar-aluno";
 
 export async function action({ request }: Route.ActionArgs) {
   const formData = await request.formData();
-  const student = await addStudent(request, formData);
-  await insertReportOnStudent(request, formData, student.id);
 
-  return redirect(`/aluno/${student.id}`);
+  const student = await addStudent(request, formData);
+
+  return redirect(`/cadastrar-relatorio/${student.id}`);
 }
 
 export default function CadastrarAluno() {
@@ -35,10 +33,6 @@ export default function CadastrarAluno() {
     try {
       const formData = new FormData();
       formData.append("nome", nome);
-      if (relatorio) {
-        formData.append("file", relatorio);
-      }
-
       await fetcher.submit(formData, {
         method: "post",
         action: "/cadastrar-aluno",
