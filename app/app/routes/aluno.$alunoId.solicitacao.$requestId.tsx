@@ -1,6 +1,8 @@
 import { useState } from "react";
 import Markdown from "react-markdown";
+import { useFetcher } from "react-router";
 import { deleteRequest } from "~/api/deleteRequest.server";
+import { updateRequest } from "~/api/updateRequest.server";
 import { getRequest } from "../api/getRequest.server";
 import Navbar from "../components/Navbar";
 import VoltarButton from "../components/VoltarButton";
@@ -16,25 +18,48 @@ export async function action({ request, params }: Route.ActionArgs) {
     await deleteRequest(params.requestId);
     return { success: true };
   }
+
+  if (request.method === "PUT") {
+    const formData = await request.formData();
+    const content = formData.get("content");
+    const id = params.requestId;
+
+    const updatedReport = await updateRequest(id, content as string);
+
+    return { success: true, updatedReport };
+  }
 }
 
 export default function Solicitacao({
   params,
   loaderData,
 }: Route.ComponentProps) {
+  const { request } = loaderData;
+
   const [isEditing, setIsEditing] = useState(false);
-  const [text, setText] = useState(``);
+
+  const [text, setText] = useState(request.content || "");
 
   const [originalText, setOriginalText] = useState(text);
 
-  const { request } = loaderData;
-
   const handleEditClick = () => {
+    setText(request.content as string);
     setOriginalText(text);
     setIsEditing(true);
   };
 
+  const fetcher = useFetcher();
+
   const handleSaveClick = () => {
+    const formData = new FormData();
+    formData.append("content", text);
+    fetcher.submit(formData, {
+      method: "put",
+      action: window.location.pathname,
+    });
+    setOriginalText(text);
+    setIsEditing(false);
+
     setIsEditing(false);
   };
 
