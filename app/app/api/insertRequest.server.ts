@@ -40,7 +40,7 @@ export async function insertRequest(
     data: {
       type: body.categoria,
       title: body.title,
-      meta: body.meta,
+      meta: JSON.parse(JSON.stringify(body.meta)),
       student: {
         connect: {
           id: student.id,
