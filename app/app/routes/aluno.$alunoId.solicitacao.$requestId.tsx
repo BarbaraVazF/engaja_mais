@@ -176,7 +176,7 @@ export default function Solicitacao({
           <div>
             {/* Box de texto editável com largura maior quando editando */}
             <textarea
-              value={request.content as string}
+              value={text as string}
               onChange={(e) => setText(e.target.value)}
               style={{
                 width: "100%",
