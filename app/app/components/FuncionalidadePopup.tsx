@@ -105,7 +105,7 @@ const FuncionalidadePopup: React.FC<FuncionalidadePopupProps> = ({
           >
             <input
               type="text"
-              placeholder="Conteúdo (ex: Guerra Fria)"
+              placeholder="Conteúdo / Matéria (ex: Guerra Fria)"
               value={conteudoMateria}
               onChange={(e) => setConteudoMateria(e.target.value)}
               className="custom-input"
@@ -125,7 +125,7 @@ const FuncionalidadePopup: React.FC<FuncionalidadePopupProps> = ({
         {(chave === "MATERIALS" || chave === "EVALUATION_MODEL") && (
           <input
             type="text"
-            placeholder="Conteúdo / Matéria"
+            placeholder="Conteúdo / Matéria (ex: Guerra Fria)"
             value={conteudoMateria}
             onChange={(e) => setConteudoMateria(e.target.value)}
             className="custom-input"
