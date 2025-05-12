@@ -89,6 +89,7 @@ export async function handleRequest(
         content: prompt,
       },
     ],
+    temperature: 0.3,
     model: "gpt-4o-mini",
   });
 
