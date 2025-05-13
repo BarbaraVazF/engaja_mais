@@ -12,7 +12,7 @@ export async function action({ request }: Route.ActionArgs) {
 
   const student = await addStudent(request, formData);
 
-  return redirect(`/cadastrar-relatorio/${student.id}`);
+  return redirect(`/`);
 }
 
 export default function CadastrarAluno() {
