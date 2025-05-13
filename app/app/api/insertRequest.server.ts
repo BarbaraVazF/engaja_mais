@@ -78,15 +78,21 @@ export async function handleRequest(
   const prompt = getPropmt(
     data.type as any,
     student.report[0].textContent,
-    JSON.parse(JSON.stringify(data.meta)).content,
-    JSON.parse(JSON.stringify(data.meta)).lessons
+    data.meta,
+    data.meta
   );
 
   const response = await openai.chat.completions.create({
     messages: [
       {
         role: "user",
-        content: prompt,
+        content: `
+        ----
+        metadados do conteúdo que deve ser gerado:
+        ${JSON.stringify(data.meta)}
+        ---
+        ${prompt}
+        `,
       },
     ],
     temperature: 0.3,
