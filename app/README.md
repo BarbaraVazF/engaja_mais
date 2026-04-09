@@ -12,7 +12,7 @@ O Engaja+ foi desenvolvido especificamente para:
 ## 🔗 Acesso e Deploy
 
 A plataforma está publicada e disponível para acesso através da Vercel:
-👉 **[Acessar Engaja+ Front-end](https://vercel.com/barbaras-projects-bd297a45/engaja-mais-front/9pHnwRKrRsrP4TqS2QyrjTQAGqDR)**
+👉 **[Acessar Engaja+ Front-end](https://engaja-mais.vercel.app/)**
 
 ## ✨ Funcionalidades
 
