@@ -1,79 +1,113 @@
-# 🧩 Engaja+
+# Engaja+
 
-Plataforma baseada em Modelos de Linguagem de Grande Escala (LLMs) projetada para auxiliar professores no ensino de crianças e adolescentes com Transtorno do Espectro Autista (TEA). Desenvolvida como uma Prova de Conceito (PoC), a ferramenta transforma os dados dos alunos em materiais didáticos personalizados, promovendo a educação inclusiva e reduzindo a sobrecarga docente.
+Plataforma web baseada em LLM para apoio a professores no ensino inclusivo de alunos com Transtorno do Espectro Autista (TEA).
 
-## 🎯 Uso Educacional
-O Engaja+ foi desenvolvido especificamente para:
-- **Apoio ao Trabalho Docente**: Reduzir a sobrecarga dos professores na elaboração materiais adaptados.
-- **Promoção da Educação Inclusiva**: Democratizar práticas de ensino personalizadas para estudantes com TEA.
-- **Engajamento**: Tornar o aprendizado mais atrativo ao integrar interesses dos alunos nas atividades.
-- **Pesquisa Acadêmica**: Avaliar a viabilidade e o impacto do uso de Inteligência Artificial Generativa no ambiente da educação especial.
+## O que é
 
-## 🔗 Acesso e Deploy
+O Engaja+ permite ao professor cadastrar alunos com TEA, anexar um relatório pedagógico em linguagem natural e solicitar a geração automática de quatro tipos de material individualizado via GPT-4o-mini:
 
-A plataforma está publicada e disponível para acesso através da Vercel:
-👉 **[Acessar Engaja+ Front-end](https://engaja-mais.vercel.app/)**
+- **Plano de Ensino Individualizado (PEI)**
 
-## ✨ Funcionalidades
+- **Material de estudo e atividades para casa**
 
-- **📝 Cadastro e Gestão de Alunos**: Anexo de relatórios com informações cruciais (idade, série, nível de suporte, interesses, desafios e padrões de aprendizagem) para alimentar a IA.
-- **📋 Plano de Ensino Individualizado (PEI)**: Geração inteligente de percursos educacionais que definem conteúdos, metas e estratégias adaptadas às particularidades do aluno.
-- **📚 Materiais de Estudo Personalizados**: Criação de resumos e atividades direcionadas para reforçar o conteúdo em casa e fomentar o estudo autônomo.
-- **📝 Avaliações Adaptadas**: Elaboração de modelos de avaliação justos, customizados para respeitar as limitações e o estilo cognitivo do estudante.
-- **🎮 Estratégias de Gamificação**: Sugestões de recompensas e desafios baseadas nos interesses individuais, aumentando o engajamento.
-- **✏️ Edição e Exportação**: Edição dinâmica dos materiais gerados pela IA para refino do professor e opção de download facilitado.
+- **Modelo de avaliação individualizado**
 
-## 🛠️ Tecnologias Utilizadas
+- **Estratégia de gamificação personalizada**
 
-O projeto foi estruturado como uma solução full-stack unificada, utilizando as seguintes tecnologias:
+A ferramenta foi desenvolvida como parte do Trabalho de Conclusão de Curso de Bárbara Vaz Ferreira no Centro de Informática da UFPE, sob orientação do Prof. Vinícius Cardoso Garcia (ASSERT Lab/CIn-UFPE).
 
-- **Frontend**: React, Vite e React Router 7
-- **Backend**: Node.js e TypeScript
-- **Banco de Dados**: MongoDB integrado via Prisma ORM
-- **Autenticação**: Google SSO via Better Auth
-- **Inteligência Artificial**: Integração direta com a API da OpenAI (modelo GPT-4o-mini)
+## Acesso em produção
 
-## 🚀 Como Usar (Passo a Passo)
+A ferramenta está disponível em: https://engaja-mais.vercel.app/
 
-A ferramenta tem o professor como usuário principal e funciona da seguinte maneira:
+O acesso é feito via Google SSO — nenhum cadastro manual é necessário.
 
-1. **Autenticação**: O professor realiza o login na plataforma utilizando sua conta Google.
-2. **Cadastro do Aluno**: O docente cadastra o aluno e anexa um relatório contendo suas informações vitais (nível de suporte, pontos fortes, desafios, interesses e objetivos).
-3. **Solicitação Inteligente**: Na área de geração de materiais, o professor insere parâmetros como o conteúdo da aula e a quantidade de aulas que deseja planejar.
-4. **Geração por IA**: O sistema utiliza engenharia de prompt para processar as informações do aluno combinadas com a matéria e gerar os documentos pedagógicos (PEI, Avaliações, Materiais de Estudo ou Gamificação).
-5. **Revisão e Uso**: O professor pode revisar e editar o texto final na própria plataforma e, em seguida, efetuar o download para utilizar em sala de aula.
+## Stack tecnológica
 
-## ⚙️ Instalação e Execução Local
+| Camada | Tecnologia |
 
-### 1. Pré-requisitos
-Para rodar este projeto localmente, você precisará ter o **Node.js** instalado e um cluster **MongoDB** em funcionamento.
+|---------|---------|
 
-### 2. Clonando o Repositório
+| Frontend | React, Vite, React Router 7 |
+
+| Backend | Node.js, TypeScript, Express.js |
+
+| Banco de dados | MongoDB com Prisma ORM |
+
+| Autenticação | Google Auth via Better Auth (SSO) |
+
+| IA | OpenAI API (GPT-4o-mini) |
+
+| Deploy | Vercel |
+
+## Como rodar localmente
+
+### Pré-requisitos
+
+- Node.js 18+
+
+- Conta MongoDB Atlas (ou instância local)
+
+- Chave de API da OpenAI
+
+- Credenciais OAuth do Google
+
+### Instalação
+
 ```bash
+# Clonar o repositório
 git clone https://github.com/BarbaraVazF/engaja_mais.git
 cd engaja_mais
-```
 
-### 3. Instalando as Dependências
-```bash
+# Instalar dependências
 npm install
+
+# Configurar variáveis de ambiente
+cp .env.example .env
 ```
 
-### 4. Variáveis de Ambiente
-Crie um arquivo .env na raiz do projeto e adicione as seguintes variáveis, substituindo os valores pelas suas credenciais reais:
-```bash
-OPENAI_API_KEY="cole_o_valor_aqui"
-DATABASE_URL="cole_o_valor_aqui"
-BETTER_AUTH_SECRET="cole_o_valor_aqui"
-BETTER_AUTH_URL="cole_o_valor_aqui"
-GOOGLE_CLIENT_ID="cole_o_valor_aqui"
-GOOGLE_CLIENT_SECRET="cole_o_valor_aqui"
-```
+### Editar o arquivo .env com suas credenciais
 
-### 5. Executando o Servidor de Desenvolvimento
+**Variáveis de ambiente**
+
+Criar um arquivo .env na raiz do projeto com as seguintes variáveis:
+
+- OPENAI_API_KEY=sua_chave_aqui
+
+- MONGODB_URL=sua_url_de_conexao_aqui
+
+- GOOGLE_CLIENT_ID=seu_client_id_aqui
+
+- GOOGLE_CLIENT_SECRET=seu_client_secret_aqui
+
+- BETTER_AUTH_SECRET=sua_secret_aqui
+
+### Executar
+
 ```bash
+# Desenvolvimento
 npm run dev
+
+# Produção
+npm run build
+npm start
 ```
 
-## 📄 Licença
-Este projeto está sob a licença MIT. Veja o arquivo LICENSE para mais detalhes.
+## Prompts
+
+Os prompts utilizados para geração dos quatro tipos de material estão
+documentados em [PROMPTS.md](PROMPTS.md).
+
+## Licença
+
+Este projeto está licenciado sob a licença MIT.
+Consulte o arquivo [LICENSE](LICENSE) para mais detalhes.
+
+## Autores
+
+- **Bárbara Vaz Ferreira** — bvf@cin.ufpe.br
+- **Sidney Alex de Amorim Arruda** — saaa@cin.ufpe.br
+- **Vinícius Cardoso Garcia** — vcg@cin.ufpe.br
+
+Centro de Informática, Universidade Federal de Pernambuco (CIn-UFPE)
+ASSERT Lab — https://assertlab.com
